@@ -25,6 +25,7 @@ namespace App1
     {
         Socket_Client client;
         public static BackLobby backLobby;
+        Log log;
         User userInfo;
 
         public MainPage()
@@ -32,7 +33,9 @@ namespace App1
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
-
+            log = new Log();
+            log.Init(ContentTbl);
+            Socket_Client.log = log;
             ContentTbl.Text = "";
 
             client = new Socket_Client();
