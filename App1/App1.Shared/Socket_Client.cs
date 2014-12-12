@@ -38,14 +38,12 @@ namespace App1
                 udpSocket.MessageReceived += SocketOnMessageReceived;
             }
 
-       //     textBlock = tb;
-          //  tb.Text += "Initialization succeeded\n\r";
             System.Diagnostics.Debug.WriteLine("Initialization succeeded");
 
             userInfo = new User();
             userInfo.Username = "Imie";
             userInfo.Address = FindIPAddress();
-            Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
+            Message hello = new Message(1, "");
 
             SendMessage(hello, 1990);
             System.Diagnostics.Debug.WriteLine("Sent hello message");
@@ -64,9 +62,7 @@ namespace App1
 
             message.UserInfo = userInfo;
             string outmessage = JsonConvert.SerializeObject(message);
-
-
-            //socket.MessageReceived += SocketOnMessageReceived;
+            System.Diagnostics.Debug.WriteLine(outmessage);
 
             using (var stream = await socket.GetOutputStreamAsync(new HostName(address), port.ToString()))
             {
@@ -76,10 +72,6 @@ namespace App1
 
                     writer.WriteBytes(data);
                     await writer.StoreAsync();
-               //     textBlock.Text += "Sent hello message";
-                    System.Diagnostics.Debug.WriteLine("Sent hello message");
-
-                    //     textBlock.Text += "Sent hello message";
                 }
             }
         }
@@ -101,12 +93,26 @@ namespace App1
                 switch (received.MessageID)
                 {
                     case 1: // Hello
-                        User newUser = JsonConvert.DeserializeObject<User>(received.Content);
-                        System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
+                        {
+                            User newUser = received.UserInfo; // JsonConvert.DeserializeObject<User>(received.Content);
+                            System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
+
+                            if (!BackLobby.userList.Contains(newUser))
+                            {
+                                BackLobby.userList.Add(newUser);
+
+                                Message response = new Message(2, "");
+                                SendMessage(response, 1990, newUser.Address);
+                            }
+                        }
                         break;
 
                     case 2: // Hello answer
-
+                        {
+                            User newUser = received.UserInfo;
+                            if (!BackLobby.userList.Contains(newUser))
+                                BackLobby.userList.Add(newUser);
+                        }
                         break;
 
                     case 3: // Message
@@ -114,6 +120,9 @@ namespace App1
                         System.Diagnostics.Debug.WriteLine(received.UserInfo.Username + ": "+ received.Content);
                         break;
 
+                    case 90: // Disconnect
+
+                        break;
                 }    
             }
         }
