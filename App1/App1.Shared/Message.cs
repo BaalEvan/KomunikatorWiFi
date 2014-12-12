@@ -7,6 +7,7 @@ namespace App1
     class Message
     {
         public int MessageID;
+        public User UserInfo;
         public string Content;
 
         public Message( int ID, string Content )

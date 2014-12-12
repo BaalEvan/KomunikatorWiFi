@@ -28,6 +28,8 @@ namespace App1
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
+        public static List<User> usersList;
+
         public Lobby()
         {
             this.InitializeComponent();
@@ -35,6 +37,8 @@ namespace App1
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+            usersList = new List<User>();
         }
 
         /// <summary>
@@ -106,6 +110,23 @@ namespace App1
             this.navigationHelper.OnNavigatedFrom(e);
         }
 
+
         #endregion
+
+        private void Sex_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (She.Opacity == 100)
+            {
+                She.Opacity = 25;
+                He.Opacity = 100;
+            }
+            else
+            {
+                She.Opacity = 100;
+                He.Opacity = 25;
+            }// TODO: Add event handler implementation here.
+        }
+
+
     }
 }

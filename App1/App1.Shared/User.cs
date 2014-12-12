@@ -4,7 +4,7 @@ using System.Text;
 
 namespace App1
 {
-    class User
+    public class User
     {
         public string Username;
         public int Sex;

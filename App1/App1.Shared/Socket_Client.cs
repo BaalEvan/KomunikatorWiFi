@@ -14,7 +14,6 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Core;
 
 using Newtonsoft.Json;
 
@@ -26,12 +25,12 @@ namespace App1
         private DataWriter dataWriter;
         private DataReader dataReader;
 
-        private TextBlock textBlock;
+        //  private TextBlock textBlock;
 
         User userInfo;
         DatagramSocket udpSocket;
 
-        public void Initialize( TextBlock tb )
+        public void Initialize(TextBlock tb)
         {
             if (udpSocket == null)
             {
@@ -39,37 +38,33 @@ namespace App1
                 udpSocket.MessageReceived += SocketOnMessageReceived;
             }
 
-            textBlock = tb;
-            tb.Text += "Initialization succeeded\n\r";
+            //     textBlock = tb;
+            //  tb.Text += "Initialization succeeded\n\r";
+            System.Diagnostics.Debug.WriteLine("Initialization succeeded");
 
             userInfo = new User();
             userInfo.Username = "Imie";
+            userInfo.Address = FindIPAddress();
             Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
 
-            SendMessage(JsonConvert.SerializeObject(hello), 1990);
+            SendMessage(hello, 1990);
+            System.Diagnostics.Debug.WriteLine("Sent hello message");
             StartListening(1990);
         }
 
-        private async void StartListening( int port )
+        private async void StartListening(int port)
         {
-            try
-            {
-                await udpSocket.BindServiceNameAsync(port.ToString());
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                textBlock.Text += "Started listening on port " + port.ToString() + "\n\r";
-            }
-            
+            await udpSocket.BindServiceNameAsync(port.ToString());
+            System.Diagnostics.Debug.WriteLine("Started listening on port " + port.ToString());
         }
 
-        private async void SendMessage(string message, int port, string address = "255.255.255.255")
+        public async void SendMessage(Message message, int port = 1990, string address = "255.255.255.255")
         {
             var socket = new DatagramSocket();
+
+            message.UserInfo = userInfo;
+            string outmessage = JsonConvert.SerializeObject(message);
+
 
             //socket.MessageReceived += SocketOnMessageReceived;
 
@@ -77,49 +72,80 @@ namespace App1
             {
                 using (var writer = new DataWriter(stream))
                 {
-                    var data = Encoding.UTF8.GetBytes(message);
+                    var data = Encoding.UTF8.GetBytes(outmessage);
 
                     writer.WriteBytes(data);
                     await writer.StoreAsync();
-                    textBlock.Text += "Sent hello message";
+                    //     textBlock.Text += "Sent hello message";
                 }
             }
         }
 
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
-            textBlock.Text += "Received message";
-            /*try
+            //    textBlock.Text += "Received message";
+            System.Diagnostics.Debug.WriteLine("Received message");
+
+            var result = args.GetDataStream();
+            var resultStream = result.AsStreamForRead(1024);
+
+            using (var reader = new StreamReader(resultStream))
             {
-                var result = args.GetDataStream();
-                var resultStream = result.AsStreamForRead(1024);
+                var text = await reader.ReadToEndAsync();
 
-                using (var reader = new StreamReader(resultStream))
+                Message received = JsonConvert.DeserializeObject<Message>(text);
+
+                switch (received.MessageID)
                 {
-                    var text = await reader.ReadToEndAsync();
-                    textBlock.Text += text;
+                    case 1: // Hello
+                        User newUser = JsonConvert.DeserializeObject<User>(received.Content);
+                        System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
+                        break;
 
-                    Message received = JsonConvert.DeserializeObject<Message>(text);
+                    case 2: // Hello answer
 
-                    textBlock.Text += received.Content + "\n\r";
+                        break;
 
-                    switch (received.MessageID)
-                    {
-                        case 1: // Hello
-                            User newUser = JsonConvert.DeserializeObject<User>(received.Content);
-                            textBlock.Text += "Received hello message from " + newUser.Username + "\n\r";
-                            break;
+                    case 3: // Message
 
-                        case 2: // Hello answer
+                        System.Diagnostics.Debug.WriteLine(received.UserInfo.Username + ": "+ received.Content);
+                        break;
 
-                            break;
-                    }
                 }
             }
-            catch
+        }
+
+        public static string FindIPAddress()
+        {
+            List<string> ipAddresses = new List<string>();
+            var hostnames = Windows.Networking.Connectivity.NetworkInformation.GetHostNames();
+            foreach (var hn in hostnames)
             {
-                textBlock.Text += "Error";
-            }*/
+                //IanaInterfaceType == 71 => Wifi
+                //IanaInterfaceType == 6 => Ethernet (Emulator)
+                if (hn.IPInformation != null &&
+                    (hn.IPInformation.NetworkAdapter.IanaInterfaceType == 71
+                    || hn.IPInformation.NetworkAdapter.IanaInterfaceType == 6))
+                {
+                    string ipAddress = hn.DisplayName;
+                    ipAddresses.Add(ipAddress);
+                }
+            }
+
+            if (ipAddresses.Count < 1)
+            {
+                return null;
+            }
+            else if (ipAddresses.Count == 1)
+            {
+                return ipAddresses[0];
+            }
+            else
+            {
+                //if multiple suitable address were found use the last one
+                //(regularly the external interface of an emulated device)
+                return ipAddresses[ipAddresses.Count - 1];
+            }
         }
     }
 }

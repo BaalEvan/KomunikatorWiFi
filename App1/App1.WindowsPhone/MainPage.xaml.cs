@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,7 +62,10 @@ namespace App1
         {
         	// TODO: Add event handler implementation here.
         //    client.SendMessage(InputTbx.Text);
+            Message mes = new Message(3, InputTbx.Text);
+            client.SendMessage(mes);
             InputTbx.Text = "";
+            
         }
 
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
