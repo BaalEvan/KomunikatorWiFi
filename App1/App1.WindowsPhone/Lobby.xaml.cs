@@ -111,14 +111,14 @@ namespace App1
 		
 		 private void Sex_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (She.Opacity == 100)
+            if (She.Opacity == 0.74f)
             {
-                She.Opacity = 25;
-                He.Opacity = 100;
+                She.Opacity = 0.25f;
+                He.Opacity = 0.74f;
             }
             else {
-                She.Opacity = 100;
-                He.Opacity = 25;
+                She.Opacity = 0.74f;
+                He.Opacity = 0.25f;
             }// TODO: Add event handler implementation here.
         }
 
