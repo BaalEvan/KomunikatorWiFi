@@ -22,11 +22,16 @@ namespace App1
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        Socket_Client client;
+
         public MainPage()
         {
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            client = new Socket_Client();
+            client.Initialize(ContentTbl, "Username");
         }
 
         /// <summary>
@@ -43,6 +48,13 @@ namespace App1
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
+        }
+
+        private void Send_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+        	// TODO: Add event handler implementation here.
+            client.SendMessage(InputTbx.Text);
+            InputTbx.Text = "";
         }
     }
 }
