@@ -24,7 +24,7 @@ namespace App1
     public sealed partial class MainPage : Page
     {
         Socket_Client client;
-        List<User> usersList;
+        public static BackLobby backLobby;
         User userInfo;
 
         public MainPage()
@@ -38,8 +38,7 @@ namespace App1
             client = new Socket_Client();
             client.Initialize(ContentTbl);
 
-            usersList = new List<User>();
-            
+            backLobby = new BackLobby();
         }
 
         /// <summary>
