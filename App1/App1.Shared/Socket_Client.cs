@@ -38,18 +38,20 @@ namespace App1
             textBlock = tb;
             tb.Text += "Initialization succeeded\n\r";
 
+            userInfo = new User();
+            userInfo.Username = "Imie";
             Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
 
             SendMessage(JsonConvert.SerializeObject(hello), 1025);
         }
 
-        private async void SendMessage(string message, int port)
+        private async void SendMessage(string message, int port, string address = "255.255.255.255")
         {
             var socket = new DatagramSocket();
 
             socket.MessageReceived += SocketOnMessageReceived;
 
-            using (var stream = await socket.GetOutputStreamAsync(new HostName("255.255.255.255"), port.ToString()))
+            using (var stream = await socket.GetOutputStreamAsync(new HostName(address), port.ToString()))
             {
                 using (var writer = new DataWriter(stream))
                 {
@@ -57,6 +59,7 @@ namespace App1
 
                     writer.WriteBytes(data);
                     await writer.StoreAsync();
+                    textBlock.Text += "Sent hello message";
                 }
             }
         }
@@ -74,7 +77,8 @@ namespace App1
                 switch( received.MessageID )
                 {
                     case 1: // Hello
-                        
+                        User newUser = JsonConvert.DeserializeObject<User>(received.Content);
+                        textBlock.Text += "Received hello message from "+ newUser.Username + "\n\r";
                         break;
 
                     case 2: // Hello answer
@@ -82,11 +86,6 @@ namespace App1
                         break;
                 }
             }
-        }
-
-        private async void Hello()
-        {
-
         }
     }
 }

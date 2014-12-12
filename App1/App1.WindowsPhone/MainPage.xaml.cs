@@ -32,6 +32,8 @@ namespace App1
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
+            ContentTbl.Text = "";
+
             client = new Socket_Client();
             client.Initialize(ContentTbl);
 
