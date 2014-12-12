@@ -45,8 +45,8 @@ namespace App1
             userInfo.Username = "Imie";
             Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
 
-            SendMessage(JsonConvert.SerializeObject(hello), 1025);
-            StartListening(1025);
+            SendMessage(JsonConvert.SerializeObject(hello), 1990);
+            StartListening(1990);
         }
 
         private async void StartListening( int port)
@@ -58,7 +58,7 @@ namespace App1
         {
             var socket = new DatagramSocket();
 
-            socket.MessageReceived += SocketOnMessageReceived;
+            //socket.MessageReceived += SocketOnMessageReceived;
 
             using (var stream = await socket.GetOutputStreamAsync(new HostName(address), port.ToString()))
             {
@@ -75,14 +75,20 @@ namespace App1
 
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
+            textBlock.Text += "Received message";
+            
             var result = args.GetDataStream();
             var resultStream = result.AsStreamForRead(1024);
 
             using (var reader = new StreamReader(resultStream))
             {
                 var text = await reader.ReadToEndAsync();
+                textBlock.Text += text;
+                
                 Message received = JsonConvert.DeserializeObject<Message>(text);
 
+                textBlock.Text += received.Content + "\n\r";
+                
                 switch( received.MessageID )
                 {
                     case 1: // Hello
@@ -93,7 +99,7 @@ namespace App1
                     case 2: // Hello answer
 
                         break;
-                }
+                }    
             }
         }
     }
