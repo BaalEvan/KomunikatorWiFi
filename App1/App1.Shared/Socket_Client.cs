@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 using Windows.ApplicationModel.Core;
 using Windows.Networking;
@@ -10,6 +11,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+
+using Newtonsoft.Json;
 
 namespace App1
 {
@@ -21,11 +24,10 @@ namespace App1
 
         private TextBlock textBlock;
 
-        string Username;
+        User userInfo;
         DatagramSocket udpSocket;
 
-
-        public void Initialize( TextBlock tb, string username )
+        public void Initialize( TextBlock tb )
         {
             if (udpSocket == null)
             {
@@ -36,8 +38,9 @@ namespace App1
             textBlock = tb;
             tb.Text += "Initialization succeeded\n\r";
 
-            Username = username;
-            SendMessage("Hello", 1025);
+            Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
+
+            SendMessage(JsonConvert.SerializeObject(hello), 1025);
         }
 
         private async void SendMessage(string message, int port)
@@ -66,13 +69,24 @@ namespace App1
             using (var reader = new StreamReader(resultStream))
             {
                 var text = await reader.ReadToEndAsync();
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                Message received = JsonConvert.DeserializeObject<Message>(text);
+
+                switch( received.MessageID )
                 {
-                    // Do what you need to with the resulting text
-                    // Doesn't have to be a messagebox
-                    MessageBox.Show(text);
-                });
+                    case 1: // Hello
+                        
+                        break;
+
+                    case 2: // Hello answer
+
+                        break;
+                }
             }
+        }
+
+        private async void Hello()
+        {
+
         }
     }
 }
