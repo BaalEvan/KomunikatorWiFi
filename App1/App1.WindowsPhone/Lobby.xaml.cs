@@ -106,6 +106,22 @@ namespace App1
             this.navigationHelper.OnNavigatedFrom(e);
         }
 
+
         #endregion
+		
+		 private void Sex_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (She.Opacity == 100)
+            {
+                She.Opacity = 25;
+                He.Opacity = 100;
+            }
+            else {
+                She.Opacity = 100;
+                He.Opacity = 25;
+            }// TODO: Add event handler implementation here.
+        }
+
+
     }
 }

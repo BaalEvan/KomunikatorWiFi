@@ -91,8 +91,8 @@
 			<Grid>
 				<Grid Height="150" VerticalAlignment="Top" Background="{ThemeResource PhoneAccentBrush}">
 					<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-						<Button x:Name="He" Content="Male" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Background="#BD0074FF"/>
-						<Button x:Name="She" Content="Female" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Background="#BDD100FF"/>
+						<Button x:Name="He" Content="Male" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Background="#BD0074FF" Click="Sex_Click"/>
+						<Button x:Name="She" Content="Female" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Background="#BDD100FF" Opacity="0.25" Click="Sex_Click"/>
 					</StackPanel>
 				</Grid>
 			</Grid>
