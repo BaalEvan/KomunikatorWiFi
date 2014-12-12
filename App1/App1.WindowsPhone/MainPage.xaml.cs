@@ -23,6 +23,8 @@ namespace App1
     public sealed partial class MainPage : Page
     {
         Socket_Client client;
+        List<User> usersList;
+        User userInfo;
 
         public MainPage()
         {
@@ -31,7 +33,10 @@ namespace App1
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
             client = new Socket_Client();
-            client.Initialize(ContentTbl, "Username");
+            client.Initialize(ContentTbl);
+
+            usersList = new List<User>();
+            
         }
 
         /// <summary>
