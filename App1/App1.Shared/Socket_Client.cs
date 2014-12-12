@@ -37,17 +37,14 @@ namespace App1
                 udpSocket = new DatagramSocket();
                 udpSocket.MessageReceived += SocketOnMessageReceived;
             }
-
-       //     textBlock = tb;
-          //  tb.Text += "Initialization succeeded\n\r";
             log.ShowDebug("Initialization succeeded");
-         //   System.Diagnostics.Debug.WriteLine("");
 
             userInfo = new User();
             userInfo.Username = "Imie";
             userInfo.Address = FindIPAddress();
             Message hello = new Message(1, "");
 
+            StartListening(1990);
             SendMessage(hello, 1990);
             log.ShowDebug("Sent hello message");
         }
@@ -64,6 +61,7 @@ namespace App1
 
             message.UserInfo = userInfo;
             string outmessage = JsonConvert.SerializeObject(message);
+            System.Diagnostics.Debug.WriteLine(outmessage);
 
             using (var stream = await socket.GetOutputStreamAsync(new HostName(address), port.ToString()))
             {
@@ -73,17 +71,12 @@ namespace App1
 
                     writer.WriteBytes(data);
                     await writer.StoreAsync();
-               //     textBlock.Text += "Sent hello message";
-                    log.ShowDebug("Sent hello message");
-
-                    //     textBlock.Text += "Sent hello message";
                 }
             }
         }
 
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
-        //    textBlock.Text += "Received message";
             log.ShowDebug("Received message");
             
             var result = args.GetDataStream();
@@ -92,7 +85,8 @@ namespace App1
             using (var reader = new StreamReader(resultStream))
             {
                 var text = await reader.ReadToEndAsync();
-                
+
+                System.Diagnostics.Debug.WriteLine(text);
                 Message received = JsonConvert.DeserializeObject<Message>(text);
 
                 switch (received.MessageID)
@@ -121,7 +115,6 @@ namespace App1
                         break;
 
                     case 3: // Message
-
                         log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
                         break;
 
