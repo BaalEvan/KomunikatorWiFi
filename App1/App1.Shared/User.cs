@@ -6,9 +6,11 @@ namespace App1
 {
     class User
     {
-        string Username;
-        int Sex;
-        int Year;
-        string Description;
+        public string Username;
+        public int Sex;
+        public int Year;
+        public string Description;
+
+        public string Address;
     }
 }

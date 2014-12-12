@@ -32,6 +32,8 @@ namespace App1
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
+            ContentTbl.Text = "";
+
             client = new Socket_Client();
             client.Initialize(ContentTbl);
 
@@ -58,7 +60,7 @@ namespace App1
         private void Send_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
         	// TODO: Add event handler implementation here.
-            client.SendMessage(InputTbx.Text);
+            //client.SendMessage(InputTbx.Text);
             InputTbx.Text = "";
         }
     }
