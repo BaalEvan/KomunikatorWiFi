@@ -46,8 +46,7 @@ namespace App1
             userInfo = new User();
             userInfo.Username = "Imie";
             userInfo.Address = FindIPAddress();
-            Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
-            StartListening(1990);
+            Message hello = new Message(1, "");
 
             SendMessage(hello, 1990);
             log.ShowDebug("Sent hello message");
@@ -65,9 +64,6 @@ namespace App1
 
             message.UserInfo = userInfo;
             string outmessage = JsonConvert.SerializeObject(message);
-
-
-            //socket.MessageReceived += SocketOnMessageReceived;
 
             using (var stream = await socket.GetOutputStreamAsync(new HostName(address), port.ToString()))
             {
@@ -102,12 +98,26 @@ namespace App1
                 switch (received.MessageID)
                 {
                     case 1: // Hello
-                        User newUser = JsonConvert.DeserializeObject<User>(received.Content);
-                        log.ShowDebug("Received hello message from " + newUser.Username);
+                        {
+                            User newUser = received.UserInfo; // JsonConvert.DeserializeObject<User>(received.Content);
+                            System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
+
+                            if (!BackLobby.userList.Contains(newUser))
+                            {
+                                BackLobby.userList.Add(newUser);
+
+                                Message response = new Message(2, "");
+                                SendMessage(response, 1990, newUser.Address);
+                            }
+                        }
                         break;
 
                     case 2: // Hello answer
-
+                        {
+                            User newUser = received.UserInfo;
+                            if (!BackLobby.userList.Contains(newUser))
+                                BackLobby.userList.Add(newUser);
+                        }
                         break;
 
                     case 3: // Message
@@ -115,6 +125,9 @@ namespace App1
                         log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
                         break;
 
+                    case 90: // Disconnect
+
+                        break;
                 }    
             }
         }

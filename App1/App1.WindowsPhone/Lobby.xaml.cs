@@ -28,7 +28,7 @@ namespace App1
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public static List<User> usersList;
+        public BackLobby backend;
 
         public Lobby()
         {
@@ -38,7 +38,7 @@ namespace App1
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            usersList = new List<User>();
+            backend = new BackLobby();
         }
 
         /// <summary>
