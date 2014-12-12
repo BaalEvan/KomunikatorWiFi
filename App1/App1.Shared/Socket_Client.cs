@@ -14,6 +14,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Core;
 
 using Newtonsoft.Json;
 
@@ -49,9 +50,21 @@ namespace App1
             StartListening(1990);
         }
 
-        private async void StartListening( int port)
+        private async void StartListening( int port )
         {
-            await udpSocket.BindServiceNameAsync(port.ToString());
+            try
+            {
+                await udpSocket.BindServiceNameAsync(port.ToString());
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                textBlock.Text += "Started listening on port " + port.ToString() + "\n\r";
+            }
+            
         }
 
         private async void SendMessage(string message, int port, string address = "255.255.255.255")
@@ -76,31 +89,37 @@ namespace App1
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
             textBlock.Text += "Received message";
-            
-            var result = args.GetDataStream();
-            var resultStream = result.AsStreamForRead(1024);
-
-            using (var reader = new StreamReader(resultStream))
+            /*try
             {
-                var text = await reader.ReadToEndAsync();
-                textBlock.Text += text;
-                
-                Message received = JsonConvert.DeserializeObject<Message>(text);
+                var result = args.GetDataStream();
+                var resultStream = result.AsStreamForRead(1024);
 
-                textBlock.Text += received.Content + "\n\r";
-                
-                switch( received.MessageID )
+                using (var reader = new StreamReader(resultStream))
                 {
-                    case 1: // Hello
-                        User newUser = JsonConvert.DeserializeObject<User>(received.Content);
-                        textBlock.Text += "Received hello message from "+ newUser.Username + "\n\r";
-                        break;
+                    var text = await reader.ReadToEndAsync();
+                    textBlock.Text += text;
 
-                    case 2: // Hello answer
+                    Message received = JsonConvert.DeserializeObject<Message>(text);
 
-                        break;
-                }    
+                    textBlock.Text += received.Content + "\n\r";
+
+                    switch (received.MessageID)
+                    {
+                        case 1: // Hello
+                            User newUser = JsonConvert.DeserializeObject<User>(received.Content);
+                            textBlock.Text += "Received hello message from " + newUser.Username + "\n\r";
+                            break;
+
+                        case 2: // Hello answer
+
+                            break;
+                    }
+                }
             }
+            catch
+            {
+                textBlock.Text += "Error";
+            }*/
         }
     }
 }
