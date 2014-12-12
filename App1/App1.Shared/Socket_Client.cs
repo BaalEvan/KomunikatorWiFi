@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.Net;
+using System.Windows;
 using System.IO;
 
 using Windows.ApplicationModel.Core;
@@ -43,6 +46,12 @@ namespace App1
             Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
 
             SendMessage(JsonConvert.SerializeObject(hello), 1025);
+            StartListening(1025);
+        }
+
+        private async void StartListening( int port)
+        {
+            await udpSocket.BindServiceNameAsync(port.ToString());
         }
 
         private async void SendMessage(string message, int port, string address = "255.255.255.255")
