@@ -24,6 +24,7 @@ namespace App1
     public sealed partial class MainPage : Page
     {
         Socket_Client client;
+        Log log;
         List<User> usersList;
         User userInfo;
 
@@ -32,7 +33,9 @@ namespace App1
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
-
+            log = new Log();
+            log.Init(ContentTbl);
+            Socket_Client.log = log;
             ContentTbl.Text = "";
 
             client = new Socket_Client();

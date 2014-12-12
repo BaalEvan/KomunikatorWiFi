@@ -20,13 +20,13 @@ using Newtonsoft.Json;
 namespace App1
 {
 
-    class Socket_Client
+    public class Socket_Client
     {
         private DataWriter dataWriter;
         private DataReader dataReader;
 
       //  private TextBlock textBlock;
-
+        public static Log log;
         User userInfo;
         DatagramSocket udpSocket;
 
@@ -40,22 +40,23 @@ namespace App1
 
        //     textBlock = tb;
           //  tb.Text += "Initialization succeeded\n\r";
-            System.Diagnostics.Debug.WriteLine("Initialization succeeded");
+            log.ShowDebug("Initialization succeeded");
+         //   System.Diagnostics.Debug.WriteLine("");
 
             userInfo = new User();
             userInfo.Username = "Imie";
             userInfo.Address = FindIPAddress();
             Message hello = new Message(1, JsonConvert.SerializeObject(userInfo));
+            StartListening(1990);
 
             SendMessage(hello, 1990);
-            System.Diagnostics.Debug.WriteLine("Sent hello message");
-            StartListening(1990);
+            log.ShowDebug("Sent hello message");
         }
 
         private async void StartListening(int port)
         {
             await udpSocket.BindServiceNameAsync(port.ToString());
-            System.Diagnostics.Debug.WriteLine("Started listening on port " + port.ToString());
+            log.ShowDebug("Started listening on port " + port.ToString());
         }
 
         public async void SendMessage(Message message, int port = 1990, string address = "255.255.255.255")
@@ -77,7 +78,7 @@ namespace App1
                     writer.WriteBytes(data);
                     await writer.StoreAsync();
                //     textBlock.Text += "Sent hello message";
-                    System.Diagnostics.Debug.WriteLine("Sent hello message");
+                    log.ShowDebug("Sent hello message");
 
                     //     textBlock.Text += "Sent hello message";
                 }
@@ -87,7 +88,7 @@ namespace App1
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
         //    textBlock.Text += "Received message";
-            System.Diagnostics.Debug.WriteLine("Received message");
+            log.ShowDebug("Received message");
             
             var result = args.GetDataStream();
             var resultStream = result.AsStreamForRead(1024);
@@ -102,7 +103,7 @@ namespace App1
                 {
                     case 1: // Hello
                         User newUser = JsonConvert.DeserializeObject<User>(received.Content);
-                        System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
+                        log.ShowDebug("Received hello message from " + newUser.Username);
                         break;
 
                     case 2: // Hello answer
@@ -111,7 +112,7 @@ namespace App1
 
                     case 3: // Message
 
-                        System.Diagnostics.Debug.WriteLine(received.UserInfo.Username + ": "+ received.Content);
+                        log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
                         break;
 
                 }    

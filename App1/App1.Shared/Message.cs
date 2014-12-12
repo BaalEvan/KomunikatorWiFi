@@ -4,7 +4,7 @@ using System.Text;
 
 namespace App1
 {
-    class Message
+    public class Message
     {
         public int MessageID;
         public User UserInfo;
