@@ -71,6 +71,7 @@ namespace App1
                     await writer.StoreAsync();
                //     textBlock.Text += "Sent hello message";
                     System.Diagnostics.Debug.WriteLine("Sent hello message");
+
                 }
             }
         }
