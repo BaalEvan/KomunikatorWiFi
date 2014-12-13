@@ -15,6 +15,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
+using Windows.UI.Notifications;
+
 using Newtonsoft.Json;
 
 namespace App1
@@ -107,6 +109,10 @@ namespace App1
                                         if (BackLobby.userList[i].Address == newUser.Address)
                                             return;
                                     }
+
+                                    var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
+                                    var Toast = new ToastNotification(toastXml);
+                                    ToastNotificationManager.CreateToastNotifier().Show(Toast);
 
                                     BackLobby.userList.Add(newUser);
 
