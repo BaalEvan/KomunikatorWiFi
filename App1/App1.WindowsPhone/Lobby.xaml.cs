@@ -151,7 +151,7 @@ namespace App1
              roamingSettings.Values["yearOfBirth"] = MyYear.Text;
              Socket_Client.userInfo.Year = int.Parse(MyYear.ToString());
              roamingSettings.Values["description"] = Socket_Client.userInfo.Description = MyDesc.Text;
-             roamingSettings.Values["sex"] = Socket_Client.userInfo.Sex = Convert.ToInt32(isMale);
+             roamingSettings.Values["sex"] = Socket_Client.userInfo.Sex = isMale ? 1 : 0;
 
              Socket_Client.SendMessage(new Message(4, ""));
 		 }
