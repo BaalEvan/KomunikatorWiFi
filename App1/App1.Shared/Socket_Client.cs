@@ -25,6 +25,8 @@ namespace App1
         private DataWriter dataWriter;
         private DataReader dataReader;
 
+        private CoreDispatcher dispatcher;
+
       //  private TextBlock textBlock;
         public static Log log;
         User userInfo;
@@ -32,6 +34,8 @@ namespace App1
 
         public void Initialize(TextBlock tb)
         {
+            dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
+
             if (udpSocket == null)
             {
                 udpSocket = new DatagramSocket();
@@ -61,7 +65,6 @@ namespace App1
 
             message.UserInfo = userInfo;
             string outmessage = JsonConvert.SerializeObject(message);
-            System.Diagnostics.Debug.WriteLine(outmessage);
 
             using (var stream = await socket.GetOutputStreamAsync(new HostName(address), port.ToString()))
             {
@@ -94,14 +97,20 @@ namespace App1
                     case 1: // Hello
                         {
                             User newUser = received.UserInfo; // JsonConvert.DeserializeObject<User>(received.Content);
-                            System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
-
-                            if (!BackLobby.userList.Contains(newUser))
+                            if (newUser.Address != userInfo.Address)
                             {
-                                BackLobby.userList.Add(newUser);
+                                System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
 
-                                Message response = new Message(2, "");
-                                SendMessage(response, 1990, newUser.Address);
+                                await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    if (!BackLobby.userList.Contains(newUser))
+                                    {
+                                        BackLobby.userList.Add(newUser);
+
+                                        Message response = new Message(2, "");
+                                        SendMessage(response, 1990, newUser.Address);
+                                    }
+                                });
                             }
                         }
                         break;
@@ -109,13 +118,19 @@ namespace App1
                     case 2: // Hello answer
                         {
                             User newUser = received.UserInfo;
-                            if (!BackLobby.userList.Contains(newUser))
-                                BackLobby.userList.Add(newUser);
+                            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                if (!BackLobby.userList.Contains(newUser))
+                                    BackLobby.userList.Add(newUser);
+                            });
                         }
                         break;
 
                     case 3: // Message
-                        log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
+                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        {
+                            log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
+                        });
                         break;
 
                     case 90: // Disconnect
