@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
+using Windows.Phone.UI.Input;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,9 +30,41 @@ namespace App1
         Log log;
         User userInfo;
 
+        private void CommandHandler1(IUICommand command)
+        {
+            var label = command.Label;
+            switch (label)
+            {
+                case "Yes":
+                    {
+                        client.SendMessage(new Message(90,""));
+                        Application.Current.Exit();
+                        break;
+                    }
+                case "No":
+                    {
+                        break;
+                    }
+
+            }
+
+        }
+
+        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            e.Handled = true;
+            MessageDialog dlg = new MessageDialog("Are you sure you want to quit?", "Warning");
+            dlg.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(CommandHandler1)));
+            dlg.Commands.Add(new UICommand("No", new UICommandInvokedHandler(CommandHandler1)));
+
+            await dlg.ShowAsync();
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 

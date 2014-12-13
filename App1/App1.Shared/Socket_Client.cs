@@ -49,12 +49,12 @@ namespace App1
   //          MyDesc.Text = roamingSettings.Values["description"].ToString();
     //        isMale = Convert.ToBoolean(roamingSettings.Values["sex"]);
             userInfo = new User();
-            userInfo.Username = roamingSettings.Values["userName"].ToString();
+            //userInfo.Username = roamingSettings.Values["userName"].ToString();
             userInfo.Address = FindIPAddress();
             Message hello = new Message(1, "");
 
             StartListening(1990);
-            SendMessage(hello, 1990);
+            SendMessage(hello);
             log.ShowDebug("Sent hello message");
         }
 
@@ -64,7 +64,7 @@ namespace App1
             log.ShowDebug("Started listening on port " + port.ToString());
         }
 
-        public async void SendMessage(Message message, int port = 1990, string address = "255.255.255.255")
+        public async void SendMessage(Message message, string address = "255.255.255.255", int port = 1990)
         {
             var socket = new DatagramSocket();
 
@@ -113,7 +113,7 @@ namespace App1
                                     BackLobby.userList.Add(newUser);
 
                                     Message response = new Message(2, "");
-                                    SendMessage(response, 1990, newUser.Address);
+                                    SendMessage(response, newUser.Address);
                                 });
                             }
                         }
@@ -165,6 +165,7 @@ namespace App1
                                         if (BackLobby.userList[i].Address == info.Address)
                                         {
                                             BackLobby.userList.RemoveAt(i);
+                                            log.ShowDebug("User " + info.Username + " has disconnected.");
                                             break;
                                         }
                                     }
