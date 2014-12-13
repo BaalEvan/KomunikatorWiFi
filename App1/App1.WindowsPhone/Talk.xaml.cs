@@ -96,12 +96,14 @@ namespace App1
         /// </summary>
         /// <param name="e">Provides data for navigation methods and event
         /// handlers that cannot cancel the navigation request.</param>
+        /// 
+        public string IP;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
-            Lista.ItemsSource = new List<ConversationMessage>() { new ConversationMessage(true,"asd"), new ConversationMessage(true,"asd"), new ConversationMessage(false,"asd"), new ConversationMessage(true,"asd") };
-
-
+            //Lista.ItemsSource = new List<ConversationMessage>() { new ConversationMessage(true,"asd"), new ConversationMessage(true,"asd"), new ConversationMessage(false,"asd"), new ConversationMessage(true,"asd") };
+            Lista.ItemsSource = ConversationList.GetIfExist(e.Parameter as User).messageList;
+            IP = (e.Parameter as User).Address;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -110,5 +112,10 @@ namespace App1
         }
 
         #endregion
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            Socket_Client.SendMessage(new Message(3,TextToSend.Text),IP);
+        }
     }
 }

@@ -51,7 +51,9 @@ namespace App1
         public static Conversation GetIfExist(User Info)
         {
             var r = ListOfConversation.Find(ele => ele.userInfo.Address == Info.Address);
-            if (r == null) r = new Conversation { userInfo = Info, messageList = new List<ConversationMessage>() };
+            if (r == null) { r = new Conversation { userInfo = Info, messageList = new List<ConversationMessage>() };
+            ListOfConversation.Add(r);
+            }
             return r;
         }
     }

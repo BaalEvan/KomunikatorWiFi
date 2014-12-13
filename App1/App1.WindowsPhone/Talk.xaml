@@ -18,7 +18,7 @@
 	</Page.Resources>
 	<Page.BottomAppBar>
 		<CommandBar>
-			<AppBarButton Icon="Send" Label="Send"/>
+			<AppBarButton x:Name="Send" Icon="Send" Label="Send" Click="Send_Click"/>
 		</CommandBar>
 	</Page.BottomAppBar>
 
@@ -33,7 +33,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions><TextBox TextWrapping="Wrap" VerticalAlignment="Bottom" PlaceholderText="Type your message here" Margin="0" Grid.RowSpan="2"/>
+        </Grid.RowDefinitions><TextBox x:Name="TextToSend" TextWrapping="Wrap" VerticalAlignment="Bottom" PlaceholderText="Type your message here" Margin="0" Grid.RowSpan="2"/>
     	<ListView x:Name="Lista" ItemTemplate="{StaticResource Message}" Margin="0,0,0,109.667" Grid.RowSpan="2"/>
 
         <!-- Title Panel -->

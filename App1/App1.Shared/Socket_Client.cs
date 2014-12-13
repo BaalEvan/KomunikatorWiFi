@@ -143,8 +143,10 @@ namespace App1
                     case 3: // Message
                         await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
-
-                                log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
+                                var c = ConversationList.GetIfExist(received.UserInfo);
+                                c.AddMessage(true, received.Content);
+                               // log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
+                                
                             });
                         break;
 
