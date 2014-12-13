@@ -44,7 +44,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions><TextBox x:Name="TextToSend" TextWrapping="Wrap" VerticalAlignment="Bottom" PlaceholderText="Type your message here" Margin="0" Grid.RowSpan="2"/>
     	<ListView x:Name="Lista" ItemTemplate="{StaticResource Message}" Margin="0,50,0,109.667" Grid.RowSpan="2"/>
-    	<TextBlock x:Name="unam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Username}" VerticalAlignment="Top" FontSize="26.667" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontWeight="Bold"/>
+    	<TextBlock x:Name="unam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="26.667" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontWeight="Bold" Text="Username"/>
 
         <!-- Title Panel -->
 

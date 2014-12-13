@@ -13,7 +13,7 @@ namespace App1
 
         public float ScaleX
         {
-            get { return Incoming ? 1 : -1; }
+            get { return Incoming ? -1 : 1; }
         }
 
         public string Align
