@@ -80,8 +80,6 @@ namespace App1
 
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
-            log.ShowDebug("Received message");
-            
             var result = args.GetDataStream();
             var resultStream = result.AsStreamForRead(1024);
 
@@ -134,7 +132,21 @@ namespace App1
                         break;
 
                     case 90: // Disconnect
+                        {
+                            User info = received.UserInfo;
+                            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    for( int i = 0; i < BackLobby.userList.Count; ++i )
+                                    {
+                                        if (BackLobby.userList[i].Address == info.Address)
+                                        {
+                                            BackLobby.userList.RemoveAt(i);
+                                            break;
+                                        }
+                                    }
 
+                                });
+                        }
                         break;
                 }    
             }
