@@ -148,9 +148,20 @@ namespace App1
 		 private void Save_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
 		 {
 		    roamingSettings.Values["userName"] = MyName.Text;
-            roamingSettings.Values["yearOfBirth"] =MyYear.Text  ;
+            roamingSettings.Values["yearOfBirth"] = MyYear.Text  ;
             roamingSettings.Values["description"] = MyDesc.Text ;
             roamingSettings.Values["sex"] = Convert.ToInt32(isMale) ;
+		 }
+
+		 private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+		 {
+         }
+
+		 private void UserListView_ItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
+		 {
+             
+             Frame.Navigate(typeof(Talk),e.ClickedItem as User);
+
 		 }
 
 

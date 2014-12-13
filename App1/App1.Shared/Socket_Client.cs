@@ -49,7 +49,7 @@ namespace App1
   //          MyDesc.Text = roamingSettings.Values["description"].ToString();
     //        isMale = Convert.ToBoolean(roamingSettings.Values["sex"]);
             userInfo = new User();
-            //userInfo.Username = roamingSettings.Values["userName"].ToString();
+            userInfo.Username = roamingSettings.Values["userName"].ToString();
             userInfo.Address = FindIPAddress();
             Message hello = new Message(1, "");
 
