@@ -110,10 +110,6 @@ namespace App1
                                             return;
                                     }
 
-                                    var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
-                                    var Toast = new ToastNotification(toastXml);
-                                    ToastNotificationManager.CreateToastNotifier().Show(Toast);
-
                                     BackLobby.userList.Add(newUser);
 
                                     Message response = new Message(2, "");
