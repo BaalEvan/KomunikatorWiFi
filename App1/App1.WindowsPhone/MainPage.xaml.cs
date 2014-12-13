@@ -71,7 +71,7 @@ namespace App1
             if (roamingSettings.Values["userName"] == null) roamingSettings.Values["userName"] = "";
             if (roamingSettings.Values["yearOfBirth"]  == null) roamingSettings.Values["yearOfBirth"] = DateTime.Now.Year ;
             if (roamingSettings.Values["description"] == null) roamingSettings.Values["description"] ="";
-            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 0;
+            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 1;
 
             log = new Log();
             log.Init(ContentTbl);

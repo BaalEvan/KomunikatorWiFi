@@ -150,7 +150,7 @@ namespace App1
 		    roamingSettings.Values["userName"] = MyName.Text;
             roamingSettings.Values["yearOfBirth"] = MyYear.Text  ;
             roamingSettings.Values["description"] = MyDesc.Text ;
-            roamingSettings.Values["sex"] = Convert.ToInt32(isMale) ;
+            roamingSettings.Values["sex"] = isMale ? 1 : 0 ;
 		 }
 
 		 private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

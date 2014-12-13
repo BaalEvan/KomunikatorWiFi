@@ -8,7 +8,7 @@ namespace App1
     public class User
     {
         public string Username{get;set;}
-        public int Sex{get;set;}
+        public int Sex {get;set;}
         public int Year { get; set; }
         public int Age { get { return DateTime.Now.Year - Year; } }
         public string Description{get;set;}

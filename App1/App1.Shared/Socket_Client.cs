@@ -50,6 +50,9 @@ namespace App1
     //        isMale = Convert.ToBoolean(roamingSettings.Values["sex"]);
             userInfo = new User();
             userInfo.Username = roamingSettings.Values["userName"].ToString();
+            userInfo.Sex = Convert.ToInt32(roamingSettings.Values["sex"]);
+            userInfo.Year = Convert.ToInt32(roamingSettings.Values["yearOfBirth"]);
+            userInfo.Description = roamingSettings.Values["description"].ToString();
             userInfo.Address = FindIPAddress();
             Message hello = new Message(1, "");
 
