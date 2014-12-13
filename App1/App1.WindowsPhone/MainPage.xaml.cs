@@ -37,10 +37,10 @@ namespace App1
 
             Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
-            roamingSettings.Values["userName"] = "Baal";
-            roamingSettings.Values["yearOfBirth"] = "1995";
-            roamingSettings.Values["description"] = "King of The World";
-            roamingSettings.Values["sex"] = 1;
+         //   roamingSettings.Values["userName"] = "Baal";
+           // roamingSettings.Values["yearOfBirth"] = "1995";
+           // roamingSettings.Values["description"] = "King of The World";
+           // roamingSettings.Values["sex"] = 1;
 
             log = new Log();
             log.Init(ContentTbl);
@@ -81,7 +81,7 @@ namespace App1
 
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(BlankPage1));// TODO: Add event handler implementation here.
+            Frame.Navigate(typeof(Lobby));// TODO: Add event handler implementation here.
         }
 
         private void Button1_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
