@@ -99,7 +99,7 @@
 					<StackPanel Orientation="Vertical" Margin="0">
 						<TextBox x:Name="MyName" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center"/>
 						<TextBox x:Name="MyYear" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Year of births" TextAlignment="Center" InputScope="Number"/>
-						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130" InputScope="Number"/>
+						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130"/>
 						<Button x:Name="Save" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource PhoneAccentBrush}" BorderThickness="0" MinWidth="0" MinHeight="70" Click="Save_Click"/>
 					</StackPanel>
 				</StackPanel>
