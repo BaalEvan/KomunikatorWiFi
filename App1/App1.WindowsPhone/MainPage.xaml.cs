@@ -83,5 +83,10 @@ namespace App1
         {
             Frame.Navigate(typeof(Lobby));// TODO: Add event handler implementation here.
         }
+
+        private void Button1_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+        	// TODO: Add event handler implementation here.
+        }
     }
 }

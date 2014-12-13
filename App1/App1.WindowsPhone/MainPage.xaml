@@ -21,6 +21,7 @@
     	<TextBox x:Name="InputTbx" Margin="0,0.333,0,-1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Stretch" Grid.Row="1"/>
     	<Button x:Name="Send" Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="2" MinHeight="62" MinWidth="89" Padding="10,0,10,3.5" Margin="0,-3,0,0" Click="Send_Click"/>
     	<Button Content="Lobby" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" MinWidth="0" Click="Button_Click"/>
+    	<Button Content="Robcio3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" MinWidth="0" Click="Button1_Click" Margin="0.166,45,0.167,0"/>
 
     </Grid>
 </Page>
