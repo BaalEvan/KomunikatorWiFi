@@ -148,6 +148,7 @@ namespace App1
                             {
                                 var c = ConversationList.GetIfExist(received.UserInfo);
                                 c.AddMessage(true, received.Content);
+                                //log.ReloadMess();
                                // log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
                                 
                             });

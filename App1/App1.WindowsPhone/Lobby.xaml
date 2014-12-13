@@ -144,7 +144,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     	<StackPanel Margin="0,0,0,-0.333" Orientation="Vertical" Grid.RowSpan="2">
-    		<Grid Height="64" VerticalAlignment="Top" Background="{ThemeResource PhoneAccentBrush}">
+    		<StackPanel.Background>
+    			<ImageBrush Stretch="Fill" ImageSource="Assets/WSZYSTKO.png"/>
+    		</StackPanel.Background>
+    		<Grid Height="64" VerticalAlignment="Top" Background="{ThemeResource PhoneAccentBrush}" d:IsHidden="True">
     			<Button Content="≡" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Padding="0,-10,0,0" MinWidth="64" MinHeight="64" FontSize="40" Margin="0" Flyout="{StaticResource Menu}"/>
     		</Grid>
     		<ListView x:Name="UserListView" ItemTemplate="{StaticResource UserInNetwork}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" ItemClick="UserListView_ItemClick" IsItemClickEnabled="True"/>

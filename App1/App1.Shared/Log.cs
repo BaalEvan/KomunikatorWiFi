@@ -10,6 +10,7 @@ namespace App1
     {
         public TextBlock tb;
         public ListView lb;
+        public ListView mess;
 
         public CoreDispatcher dispatcher;
         public void Init(TextBlock ContentTB,ListView Lobby){
@@ -45,6 +46,21 @@ namespace App1
                 {
                     lb.ItemsSource = new List<string>();
                     lb.ItemsSource = BackLobby.userList;
+                });
+                // }
+            }
+            catch (Exception e) { }
+        }
+        public async void ReloadMess()
+        {
+            try
+            {
+                // if (tb != null)
+                //{
+                await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    mess.ScrollIntoView((mess.ItemsSource as List<ConversationMessage>)[(mess.ItemsSource as List<ConversationMessage>).Count-1]);   
+
                 });
                 // }
             }
