@@ -100,22 +100,26 @@
 						</StackPanel>
 					</Grid>
 					<StackPanel Orientation="Vertical" Margin="0">
-						<TextBox x:Name="MyName" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center" BorderBrush="{x:Null}" Foreground="White">
+						<TextBox x:Name="MyName" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center" BorderBrush="{x:Null}" Foreground="White" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontSize="24" Padding="7,3,8,0" RequestedTheme="Dark">
 							<TextBox.Background>
 								<ImageBrush Stretch="Fill" ImageSource="Assets/profile category small.png"/>
 							</TextBox.Background>
 						</TextBox>
-						<TextBox x:Name="MyYear" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Year of birth" TextAlignment="Center" InputScope="Number" BorderBrush="{x:Null}" Foreground="White">
+						<TextBox x:Name="MyYear" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Year of birth" TextAlignment="Center" InputScope="Number" BorderBrush="{x:Null}" Foreground="White" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontSize="24" Padding="7,3,8,0" RequestedTheme="Dark">
 							<TextBox.Background>
 								<ImageBrush Stretch="Fill" ImageSource="Assets/profile category small.png"/>
 							</TextBox.Background>
 						</TextBox>
-						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130" BorderBrush="{x:Null}" Foreground="White">
+						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130" BorderBrush="{x:Null}" Foreground="White" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontSize="24" Padding="7,3,8,0" RequestedTheme="Dark">
 							<TextBox.Background>
 								<ImageBrush Stretch="Fill" ImageSource="Assets/profile category big.png"/>
 							</TextBox.Background>
 						</TextBox>
-						<Button x:Name="Save" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource PhoneAccentBrush}" BorderThickness="0" MinWidth="0" MinHeight="70" Click="Save_Click"/>
+						<Button x:Name="Save" Content="" HorizontalAlignment="Center" VerticalAlignment="Stretch" BorderThickness="0" MinWidth="220" MinHeight="70" Click="Save_Click">
+							<Button.Background>
+								<ImageBrush Stretch="Uniform" ImageSource="Assets/save.png"/>
+							</Button.Background>
+						</Button>
 					</StackPanel>
 				</StackPanel>
 			</Grid>
