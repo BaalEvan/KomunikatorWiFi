@@ -133,10 +133,11 @@ namespace App1
                         break;
 
                     case 4: // Changed user info
+                        {
                             User info = received.UserInfo;
                             await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                                 {
-                                    for( int i = 0; i < BackLobby.userList.Count; ++i )
+                                    for (int i = 0; i < BackLobby.userList.Count; ++i)
                                     {
                                         if (BackLobby.userList[i].Address == info.Address)
                                         {
@@ -146,6 +147,7 @@ namespace App1
                                     }
 
                                 });
+                        }
                         break;
 
                     case 90: // Disconnect
