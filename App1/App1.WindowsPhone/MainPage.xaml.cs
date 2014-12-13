@@ -64,7 +64,6 @@ namespace App1
         {
             this.InitializeComponent();
 
-
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
             Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
