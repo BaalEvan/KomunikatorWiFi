@@ -98,7 +98,7 @@ namespace App1
                             User newUser = received.UserInfo; // JsonConvert.DeserializeObject<User>(received.Content);
                             if (newUser.Address != userInfo.Address)
                             {
-                                    log.ShowDebug("Received hello message from " + newUser.Username);
+                                log.ShowDebug("Received hello message from " + newUser.Username);
 
                                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                                 {
@@ -126,8 +126,26 @@ namespace App1
                         break;
 
                     case 3: // Message
+                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                            {
+                                log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
+                            });
+                        break;
 
-                            log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
+                    case 4: // Changed user info
+                            User info = received.UserInfo;
+                            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    for( int i = 0; i < BackLobby.userList.Count; ++i )
+                                    {
+                                        if (BackLobby.userList[i].Address == info.Address)
+                                        {
+                                            BackLobby.userList[i] = info;
+                                            break;
+                                        }
+                                    }
+
+                                });
                         break;
 
                     case 90: // Disconnect
