@@ -31,7 +31,7 @@ namespace App1
 
       //  private TextBlock textBlock;
         public static Log log;
-        User userInfo;
+        public static User userInfo;
         DatagramSocket udpSocket;
         Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
         Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
@@ -67,7 +67,7 @@ namespace App1
             log.ShowDebug("Started listening on port " + port.ToString());
         }
 
-        public async void SendMessage(Message message, string address = "255.255.255.255", int port = 1990)
+        public async static void SendMessage(Message message, string address = "255.255.255.255", int port = 1990)
         {
             var socket = new DatagramSocket();
 

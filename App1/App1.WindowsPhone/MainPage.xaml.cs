@@ -37,7 +37,7 @@ namespace App1
             {
                 case "Yes":
                     {
-                        client.SendMessage(new Message(90,""));
+                        Socket_Client.SendMessage(new Message(90,""));
                         Application.Current.Exit();
                         break;
                     }
@@ -63,7 +63,6 @@ namespace App1
         public MainPage()
         {
             this.InitializeComponent();
-
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
@@ -121,8 +120,7 @@ namespace App1
         {
         	// TODO: Add event handler implementation here.
         //    client.SendMessage(InputTbx.Text);
-            Message mes = new Message(3, InputTbx.Text);
-            client.SendMessage(mes);
+            Socket_Client.SendMessage(new Message(3, InputTbx.Text));
             InputTbx.Text = "";
             
         }

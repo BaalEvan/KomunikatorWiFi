@@ -133,7 +133,7 @@ namespace App1
         {
             if (isMale==false)
             {
-                isMale = true   ;
+                isMale = true;
                 She.Opacity = 0.25f;
                 He.Opacity = 0.74f;
             }
@@ -147,10 +147,13 @@ namespace App1
 
 		 private void Save_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
 		 {
-		    roamingSettings.Values["userName"] = MyName.Text;
-            roamingSettings.Values["yearOfBirth"] = MyYear.Text  ;
-            roamingSettings.Values["description"] = MyDesc.Text ;
-            roamingSettings.Values["sex"] = isMale ? 1 : 0 ;
+             roamingSettings.Values["userName"] = Socket_Client.userInfo.Username = MyName.Text;
+             roamingSettings.Values["yearOfBirth"] = MyYear.Text;
+             Socket_Client.userInfo.Year = int.Parse(MyYear.Text.ToString());
+             roamingSettings.Values["description"] = Socket_Client.userInfo.Description = MyDesc.Text;
+             roamingSettings.Values["sex"] = Socket_Client.userInfo.Sex = isMale ? 1 : 0;
+
+             Socket_Client.SendMessage(new Message(4, ""));
 		 }
 
 		 private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)

@@ -26,8 +26,6 @@ namespace App1
             }
         }
 
-
-
         public ConversationMessage(bool incoming, string message)
         {
             Incoming = incoming;
