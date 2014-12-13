@@ -99,10 +99,28 @@ namespace App1
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
+          //  Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+         //   Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
             UserListView.ItemsSource = BackLobby.userList;
-
+            MyName.Text = roamingSettings.Values["userName"].ToString();
+            MyYear.Text = roamingSettings.Values["yearOfBirth"].ToString();
+            MyDesc.Text = roamingSettings.Values["description"].ToString();
+            isMale = Convert.ToBoolean(roamingSettings.Values["sex"]);
+            if (isMale == true)
+            {
+                She.Opacity = 0.25f;
+                He.Opacity = 0.74f;
+            }
+            else
+            {
+                She.Opacity = 0.74f;
+                He.Opacity = 0.25f;
+            }
         }
 
+        Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+        Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
+        public bool isMale;
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedFrom(e);
@@ -113,16 +131,27 @@ namespace App1
 		
 		 private void Sex_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (She.Opacity == 0.74f)
+            if (isMale==false)
             {
+                isMale = true   ;
                 She.Opacity = 0.25f;
                 He.Opacity = 0.74f;
             }
             else {
+                isMale = false;
+
                 She.Opacity = 0.74f;
                 He.Opacity = 0.25f;
             }// TODO: Add event handler implementation here.
         }
+
+		 private void Save_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		 {
+		    roamingSettings.Values["userName"] = MyName.Text;
+            roamingSettings.Values["yearOfBirth"] =MyYear.Text  ;
+            roamingSettings.Values["description"] = MyDesc.Text ;
+            roamingSettings.Values["sex"] = Convert.ToInt32(isMale) ;
+		 }
 
 
     }
