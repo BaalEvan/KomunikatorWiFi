@@ -9,9 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 	<Page.Resources>
 		<DataTemplate x:Key="Message">
-			<Grid Width="160" Height="80" HorizontalAlignment="Right" >
-				<TextBlock TextWrapping="Wrap" Text="{Binding message}" Margin="0,0,0,10" Foreground="White" HorizontalAlignment="Left"/>
-				<Rectangle HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="160" Margin="0,0,0,10" Fill="{ThemeResource PhoneAccentBrush}" Stroke="{ThemeResource PhoneAccentBrush}"/>
+			<Grid Height="80" >
+				<Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="{Binding pos}" Background="#FF005DFF" MinWidth="200">
+					<TextBlock TextWrapping="Wrap" Text="{Binding message}" Margin="0,0,0,8.333" Foreground="White" HorizontalAlignment="Left"/>
+				</Border>
 			</Grid>
 		</DataTemplate>
 	</Page.Resources>
