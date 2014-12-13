@@ -111,10 +111,10 @@ namespace App1
                                     }
 
                                     BackLobby.userList.Add(newUser);
-
-                                    Message response = new Message(2, "");
-                                    SendMessage(response, newUser.Address);
                                 });
+
+                                Message response = new Message(2, "");
+                                SendMessage(response, newUser.Address);
                             }
                         }
                         break;
@@ -122,10 +122,17 @@ namespace App1
                     case 2: // Hello answer
                         {
                             User newUser = received.UserInfo;
+                            log.ShowDebug("Received answer from " + newUser.Username);
+
                             await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
-                                if (!BackLobby.userList.Contains(newUser))
-                                    BackLobby.userList.Add(newUser);
+                                for (int i = 0; i < BackLobby.userList.Count; ++i)
+                                {
+                                    if (BackLobby.userList[i].Address == newUser.Address)
+                                        return;
+                                }
+
+                                BackLobby.userList.Add(newUser);
                             });
                         }
                         break;
@@ -133,6 +140,7 @@ namespace App1
                     case 3: // Message
                         await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                             {
+
                                 log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
                             });
                         break;
