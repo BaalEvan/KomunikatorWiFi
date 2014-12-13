@@ -64,7 +64,6 @@ namespace App1
         {
             this.InitializeComponent();
 
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
@@ -93,6 +92,8 @@ namespace App1
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
             // TODO: Prepare page for display here.
 
             // TODO: If your application contains multiple pages, ensure that you are
@@ -101,6 +102,20 @@ namespace App1
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
         }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+
+            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+            // TODO: Prepare page for display here.
+
+            // TODO: If your application contains multiple pages, ensure that you are
+            // handling the hardware Back button by registering for the
+            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
+            // If you are using the NavigationHelper provided by some templates,
+            // this event is handled for you.
+        }
+
 
         private void Send_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -119,7 +134,7 @@ namespace App1
 
         private void Button1_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(BlankPage1));// TODO: Add event handler implementation here.
+            Frame.Navigate(typeof(Talk));// TODO: Add event handler implementation here.
         }
     }
 }
