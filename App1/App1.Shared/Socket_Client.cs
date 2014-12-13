@@ -80,7 +80,11 @@ namespace App1
 
         private async void SocketOnMessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
-            log.ShowDebug("Received message");
+
+
+                log.ShowDebug("Received message");
+
+           
             
             var result = args.GetDataStream();
             var resultStream = result.AsStreamForRead(1024);
@@ -89,7 +93,8 @@ namespace App1
             {
                 var text = await reader.ReadToEndAsync();
 
-                System.Diagnostics.Debug.WriteLine(text);
+
+                    log.ShowDebug(text);
                 Message received = JsonConvert.DeserializeObject<Message>(text);
 
                 switch (received.MessageID)
@@ -99,7 +104,7 @@ namespace App1
                             User newUser = received.UserInfo; // JsonConvert.DeserializeObject<User>(received.Content);
                             if (newUser.Address != userInfo.Address)
                             {
-                                System.Diagnostics.Debug.WriteLine("Received hello message from " + newUser.Username);
+                                    log.ShowDebug("Received hello message from " + newUser.Username);
 
                                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                                 {
@@ -127,10 +132,8 @@ namespace App1
                         break;
 
                     case 3: // Message
-                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                        {
+
                             log.ShowDebug(received.UserInfo.Username + ": " + received.Content);
-                        });
                         break;
 
                     case 90: // Disconnect
