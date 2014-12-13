@@ -118,12 +118,12 @@ namespace App1
         /// The navigation parameter is available in the LoadState method 
         /// in addition to page state preserved during an earlier session.
 
-        TextBox MyName = new TextBox();
-        TextBox MyYear = new TextBox();
-        TextBox MyDesc = new TextBox();
+       // TextBox MyName = new TextBox();
+       // TextBox MyYear = new TextBox();
+      //  TextBox MyDesc = new TextBox();
 
-        Button She = new Button();
-        Button He = new Button();
+  //      Button She = new Button();
+//        Button He = new Button();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

@@ -99,6 +99,8 @@ namespace App1
         /// 
         public string IP;
         Conversation thisConv;
+        //public string Username {get;set;}
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
@@ -106,6 +108,8 @@ namespace App1
             thisConv = ConversationList.GetIfExist(e.Parameter as User);
             Lista.ItemsSource = thisConv.messageList;
             IP = (e.Parameter as User).Address;
+
+            unam.Text= thisConv.userInfo.Username;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
