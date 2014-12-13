@@ -56,9 +56,6 @@
 									<VisualState x:Name="Pressed">
 										<Storyboard>
 											<PointerDownThemeAnimation Storyboard.TargetName="Grid"/>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
-											</ObjectAnimationUsingKeyFrames>
 											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
 												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
 											</ObjectAnimationUsingKeyFrames>
@@ -66,9 +63,6 @@
 									</VisualState>
 									<VisualState x:Name="Disabled">
 										<Storyboard>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
-											</ObjectAnimationUsingKeyFrames>
 											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
 												<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
 											</ObjectAnimationUsingKeyFrames>
@@ -79,8 +73,7 @@
 									</VisualState>
 								</VisualStateGroup>
 							</VisualStateManager.VisualStateGroups>
-							<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="{ThemeResource PhoneTouchTargetOverhang}" CornerRadius="100" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="64" MinHeight="64"/>
-							<ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="27,0,26,0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+							<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" MinWidth="64" MinHeight="64" UseLayoutRounding="True"/>
 						</Grid>
 					</ControlTemplate>
 				</Setter.Value>
@@ -89,17 +82,39 @@
 		<Flyout x:Key="Menu">
 			<Grid>
 				<StackPanel Margin="0" Orientation="Vertical">
-					<Grid Height="150" VerticalAlignment="Top" Background="{ThemeResource PhoneAccentBrush}">
-						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-							<Button x:Name="He" Content="Male" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Background="#BD0074FF" Click="Sex_Click"/>
-							<Button x:Name="She" Content="Female" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Background="#BDD100FF" Opacity="0.25" Click="Sex_Click"/>
+					<Grid Height="150" VerticalAlignment="Top">
+						<Grid.Background>
+							<ImageBrush Stretch="Fill" ImageSource="Assets/profil nagłówek portrait.png"/>
+						</Grid.Background>
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,33">
+							<Button x:Name="He" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource SexSelector}" Click="Sex_Click" UseLayoutRounding="True" BorderThickness="0" MinWidth="0" MinHeight="0" Width="170" Height="64">
+								<Button.Background>
+									<ImageBrush ImageSource="Assets/gentleman.png" Stretch="Uniform"/>
+								</Button.Background>
+							</Button>
+							<Button x:Name="She" Content="" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.25" Click="Sex_Click" BorderThickness="0" Width="170" Height="64" MinWidth="0" MinHeight="0">
+								<Button.Background>
+									<ImageBrush Stretch="Uniform" ImageSource="Assets/lady.png"/>
+								</Button.Background>
+							</Button>
 						</StackPanel>
 					</Grid>
 					<StackPanel Orientation="Vertical" Margin="0">
-						<TextBox x:Name="MyName" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center"/>
-						<TextBox x:Name="MyYear" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Year of births" TextAlignment="Center" InputScope="Number"/>
-						<DatePicker HorizontalAlignment="Left" Height="47" VerticalAlignment="Top" Width="108" AllowDrop="True" DayFormat="day" DayVisible="False" MonthVisible="False"/>
-						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130"/>
+						<TextBox x:Name="MyName" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center" BorderBrush="{x:Null}" Foreground="White">
+							<TextBox.Background>
+								<ImageBrush Stretch="Fill" ImageSource="Assets/profile category small.png"/>
+							</TextBox.Background>
+						</TextBox>
+						<TextBox x:Name="MyYear" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Year of birth" TextAlignment="Center" InputScope="Number" BorderBrush="{x:Null}" Foreground="White">
+							<TextBox.Background>
+								<ImageBrush Stretch="Fill" ImageSource="Assets/profile category small.png"/>
+							</TextBox.Background>
+						</TextBox>
+						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130" BorderBrush="{x:Null}" Foreground="White">
+							<TextBox.Background>
+								<ImageBrush Stretch="Fill" ImageSource="Assets/profile category big.png"/>
+							</TextBox.Background>
+						</TextBox>
 						<Button x:Name="Save" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource PhoneAccentBrush}" BorderThickness="0" MinWidth="0" MinHeight="70" Click="Save_Click"/>
 					</StackPanel>
 				</StackPanel>
@@ -151,7 +166,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     	<StackPanel Margin="0,0,0,-0.333" Orientation="Vertical" Grid.RowSpan="2">
-    		<Grid Height="64" VerticalAlignment="Top" Background="{ThemeResource PhoneAccentBrush}" d:IsHidden="True">
+    		<Grid Height="64" VerticalAlignment="Top">
+    			<Grid.Background>
+    				<ImageBrush Stretch="Fill" ImageSource="Assets/profil nagłówek portrait.png"/>
+    			</Grid.Background>
     			<Button Content="≡" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Padding="0,-10,0,0" MinWidth="64" MinHeight="64" FontSize="40" Margin="0" Flyout="{StaticResource Menu}"/>
     		</Grid>
     		<ListView x:Name="UserListView" ItemTemplate="{StaticResource UserInNetwork}" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" ItemClick="UserListView_ItemClick" IsItemClickEnabled="True"/>
