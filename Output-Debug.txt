@@ -1,0 +1,25 @@
+﻿'App1.WindowsPhone.exe' (CoreCLR: DefaultDomain): Loaded 'C:\windows\system32\mscorlib.ni.dll'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\Data\SharedData\PhoneTools\AppxLayouts\84d4156a-f43f-4092-8171-1a93271d07b8VS.Debug_AnyCPU.Dominik\App1.WindowsPhone.exe'. Symbols loaded.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.RUNTIME.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\WinMetadata\Windows.winmd'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.RUNTIME.INTEROPSERVICES.WINDOWSRUNTIME.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.DIAGNOSTICS.DEBUG.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.COLLECTIONS.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.THREADING.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.RUNTIME.EXTENSIONS.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.THREADING.TASKS.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\System.Runtime.WindowsRuntime.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Initialization succeeded
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\en-US\mscorlib.debug.resources.dll'. Module was built without symbols.
+Started listening on port 1990
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.TEXT.ENCODING.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\Data\SharedData\PhoneTools\AppxLayouts\84d4156a-f43f-4092-8171-1a93271d07b8VS.Debug_AnyCPU.Dominik\Newtonsoft.Json.DLL'. Cannot find or open the PDB file.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.CORE.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.RUNTIME.SERIALIZATION.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'Anonymously Hosted DynamicMethods Assembly'. 
+Sent hello message
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.IO.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+Received answer from Robcio
+'App1.WindowsPhone.exe' (CoreCLR: .): Loaded 'C:\windows\system32\SYSTEM.OBJECTMODEL.NI.DLL'. Skipped loading symbols. Module is optimized and the debugger option 'Just My Code' is enabled.
+The program '[232] App1.WindowsPhone.exe' has exited with code 0 (0x0).

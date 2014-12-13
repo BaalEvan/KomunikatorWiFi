@@ -9,10 +9,13 @@ namespace App1
     public class Log
     {
         public TextBlock tb;
-        public CoreDispatcher dispatcher;
-        public void Init(TextBlock ContentTB){
-            dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
+        public ListView lb;
+        public ListView mess;
 
+        public CoreDispatcher dispatcher;
+        public void Init(TextBlock ContentTB,ListView Lobby){
+            dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
+            lb = Lobby;
             tb = ContentTB;
         }
 
@@ -24,11 +27,44 @@ namespace App1
                 //{
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
+                        lb.ItemsSource = new List<string>();
+                        lb.ItemsSource = BackLobby.userList;
                         tb.Text += message + "\n";
                     });
                // }
             }
             catch(Exception e){}
+        }
+
+        public async void Reload()
+        {
+            try
+            {
+                // if (tb != null)
+                //{
+                await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    lb.ItemsSource = new List<string>();
+                    lb.ItemsSource = BackLobby.userList;
+                });
+                // }
+            }
+            catch (Exception e) { }
+        }
+        public async void ReloadMess()
+        {
+            try
+            {
+                // if (tb != null)
+                //{
+                await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    mess.ScrollIntoView((mess.ItemsSource as List<ConversationMessage>)[(mess.ItemsSource as List<ConversationMessage>).Count-1]);   
+
+                });
+                // }
+            }
+            catch (Exception e) { }
         }
     }
 }
