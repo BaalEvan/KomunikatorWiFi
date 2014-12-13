@@ -11,6 +11,10 @@ namespace App1
         public string Message { get; set; }
         public DateTime Time { get; set; }
 
+        public float ScaleX
+        {
+            get { return Incoming ? 1 : -1; }
+        }
 
         public string Align
         {

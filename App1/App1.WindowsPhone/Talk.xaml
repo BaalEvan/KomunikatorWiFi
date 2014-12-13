@@ -5,17 +5,26 @@
     xmlns:local="using:App1"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 	<Page.Resources>
 		<DataTemplate x:Key="Message">
 			<Grid Width="385" Margin="0,0,0,10" >
-				<Border BorderBrush="Black" BorderThickness="1" Background="{ThemeResource PhoneAccentBrush}" HorizontalAlignment="{Binding Align}" MinWidth="200">
-					<TextBlock TextWrapping="Wrap" Text="{Binding Message}" Margin="0,0,0,7.5" Foreground="White" HorizontalAlignment="{Binding Align}" Padding="10,5"/>
+				<Border BorderThickness="1" HorizontalAlignment="{Binding Align}" MinWidth="270">
+					<Border.Background>
+						<ImageBrush Stretch="Fill" ImageSource="Assets/text big left.png">
+							<ImageBrush.RelativeTransform>
+								<CompositeTransform CenterY="0.5" CenterX="0.5" ScaleX="{Binding ScaleX}"/>
+							</ImageBrush.RelativeTransform>
+						</ImageBrush>
+					</Border.Background>
+					<TextBlock TextWrapping="Wrap" Text="{Binding Message}" Margin="0" Foreground="White" HorizontalAlignment="{Binding Align}" Padding="10,5" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontSize="20"/>
 				</Border>
 			</Grid>
 		</DataTemplate>
 	</Page.Resources>
+	<Page.Background>
+		<ImageBrush Stretch="Fill" ImageSource="Assets/background portrait.png"/>
+	</Page.Background>
 	<Page.BottomAppBar>
 		<CommandBar>
 			<AppBarButton x:Name="Send" Icon="Send" Label="Send" Click="Send_Click"/>
@@ -34,7 +43,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions><TextBox x:Name="TextToSend" TextWrapping="Wrap" VerticalAlignment="Bottom" PlaceholderText="Type your message here" Margin="0" Grid.RowSpan="2"/>
-    	<ListView x:Name="Lista" ItemTemplate="{StaticResource Message}" Margin="0,0,0,109.667" Grid.RowSpan="2"/>
+    	<ListView x:Name="Lista" ItemTemplate="{StaticResource Message}" Margin="0,50,0,109.667" Grid.RowSpan="2"/>
+    	<TextBlock x:Name="unam" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Username}" VerticalAlignment="Top" FontSize="26.667" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontWeight="Bold"/>
 
         <!-- Title Panel -->
 

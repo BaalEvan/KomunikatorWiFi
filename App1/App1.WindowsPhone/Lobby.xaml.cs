@@ -90,14 +90,13 @@ namespace App1
             Socket_Client.log = log;
             ContentTbl.Text = "";
 
-            client = new Socket_Client();
-            client.Initialize(ContentTbl);
+            if (Socket_Client.udpSocket == null)
+            {
+                client = new Socket_Client();
+                client.Initialize(ContentTbl);
 
-            backLobby = new BackLobby();
-
-
-
-
+                backLobby = new BackLobby();
+            }
         }
 
         /// <summary>

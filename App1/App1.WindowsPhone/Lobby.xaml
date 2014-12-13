@@ -5,8 +5,7 @@
     xmlns:local="using:App1"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 	<Page.Resources>
 		<Thickness x:Key="PhoneBorderThickness">2.5</Thickness>
 		<FontFamily x:Key="PhoneFontFamilyNormal">Segoe WP</FontFamily>
@@ -121,18 +120,25 @@
 		<DataTemplate x:Key="UserInNetwork">
 			<Grid Width="385" Margin="0,5" Height="64"><Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="64" CornerRadius="100" Margin="10,0,0,0">
 	<Border.Background>
-		<SolidColorBrush Color="{Binding GetSexColor}"/>
+		<ImageBrush Stretch="Fill" ImageSource="Assets/male.png"/>
 	</Border.Background>
-	<TextBlock TextWrapping="Wrap" Text="{Binding GetSexChar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
 </Border>
-				<TextBlock TextWrapping="Wrap" Text="{Binding Username}" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Margin="65,0,0,0"/>
+				<TextBlock TextWrapping="Wrap" Text="{Binding Username}" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Margin="85,0,0,0" FontFamily="Assets/AGENCYR.TTF#Agency FB" FontSize="16"/>
 				<TextBlock TextWrapping="Wrap" Text="{Binding Age}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="85,0,0,5"/>
 				<Button Content="&#xE1CB;" HorizontalAlignment="Right" VerticalAlignment="Stretch" BorderThickness="0" FontFamily="Segoe UI Symbol" FontSize="18.667" MinWidth="50" MinHeight="50" Margin="0" Flyout="{StaticResource MoreInfoUser}"/>
+				<Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="64" VerticalAlignment="Top" Width="64" CornerRadius="100" Margin="10,0,0,0" Visibility="{Binding isFemale}">
+					<Border.Background>
+						<ImageBrush Stretch="Fill" ImageSource="Assets/female.png"/>
+					</Border.Background>
+				</Border>
 			</Grid>
 		</DataTemplate>
 	</Page.Resources>
+	<Page.Background>
+		<ImageBrush Stretch="Fill" ImageSource="Assets/background portrait.png"/>
+	</Page.Background>
 
-    <Grid x:Name="LayoutRoot" Background="#00000000">
+    <Grid x:Name="LayoutRoot">
 
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -145,9 +151,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     	<StackPanel Margin="0,0,0,-0.333" Orientation="Vertical" Grid.RowSpan="2">
-    		<StackPanel.Background>
-    			<ImageBrush Stretch="Fill" ImageSource="Assets/WSZYSTKO.png"/>
-    		</StackPanel.Background>
     		<Grid Height="64" VerticalAlignment="Top" Background="{ThemeResource PhoneAccentBrush}" d:IsHidden="True">
     			<Button Content="≡" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Padding="0,-10,0,0" MinWidth="64" MinHeight="64" FontSize="40" Margin="0" Flyout="{StaticResource Menu}"/>
     		</Grid>

@@ -32,7 +32,7 @@ namespace App1
       //  private TextBlock textBlock;
         public static Log log;
         public static User userInfo;
-        DatagramSocket udpSocket;
+        public static DatagramSocket udpSocket;
         Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
         Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
         public void Initialize(TextBlock tb)
