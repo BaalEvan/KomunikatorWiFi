@@ -54,7 +54,7 @@ namespace App1
             Message hello = new Message(1, "");
 
             StartListening(1990);
-            SendMessage(hello, 1990);
+            SendMessage(hello);
             log.ShowDebug("Sent hello message");
         }
 
@@ -64,7 +64,7 @@ namespace App1
             log.ShowDebug("Started listening on port " + port.ToString());
         }
 
-        public async void SendMessage(Message message, int port = 1990, string address = "255.255.255.255")
+        public async void SendMessage(Message message, string address = "255.255.255.255", int port = 1990)
         {
             var socket = new DatagramSocket();
 
@@ -113,7 +113,7 @@ namespace App1
                                     BackLobby.userList.Add(newUser);
 
                                     Message response = new Message(2, "");
-                                    SendMessage(response, 1990, newUser.Address);
+                                    SendMessage(response, newUser.Address);
                                 });
                             }
                         }
