@@ -81,7 +81,7 @@ namespace App1
 
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(BlankPage1));// TODO: Add event handler implementation here.
+            Frame.Navigate(typeof(Lobby));// TODO: Add event handler implementation here.
         }
 
         private void Button1_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

@@ -22,6 +22,7 @@ namespace App1
 
     public class asd {
         public string message { get; set; }
+        public string pos { get; set; }
     }
     
     /// </summary>
@@ -30,7 +31,7 @@ namespace App1
         public BlankPage1()
         {
             this.InitializeComponent();
-            Lista.ItemsSource = new List<asd>() { new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" } };
+            Lista.ItemsSource = new List<asd>() { new asd { message = "sadsd", pos = "Left" }, new asd { message = "sadsd", pos = "Left" }, new asd { message = "sadsd", pos = "Right" }, new asd { message = "sadsd", pos = "Left" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" }, new asd { message = "sadsd" } };
         }
 
         /// <summary>
