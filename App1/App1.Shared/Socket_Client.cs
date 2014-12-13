@@ -33,7 +33,8 @@ namespace App1
         public static Log log;
         User userInfo;
         DatagramSocket udpSocket;
-
+        Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+        Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
         public void Initialize(TextBlock tb)
         {
             dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
@@ -44,9 +45,11 @@ namespace App1
                 udpSocket.MessageReceived += SocketOnMessageReceived;
             }
             log.ShowDebug("Initialization succeeded");
-
+//            MyYear.Text = roamingSettings.Values["yearOfBirth"].ToString();
+  //          MyDesc.Text = roamingSettings.Values["description"].ToString();
+    //        isMale = Convert.ToBoolean(roamingSettings.Values["sex"]);
             userInfo = new User();
-            userInfo.Username = "Imie";
+            userInfo.Username = roamingSettings.Values["userName"].ToString();
             userInfo.Address = FindIPAddress();
             Message hello = new Message(1, "");
 

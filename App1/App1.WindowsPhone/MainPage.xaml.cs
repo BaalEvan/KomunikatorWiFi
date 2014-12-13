@@ -33,6 +33,15 @@ namespace App1
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+
+            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
+            roamingSettings.Values["userName"] = "Baal";
+            roamingSettings.Values["yearOfBirth"] = "1995";
+            roamingSettings.Values["description"] = "King of The World";
+            roamingSettings.Values["sex"] = 1;
+
             log = new Log();
             log.Init(ContentTbl);
             Socket_Client.log = log;

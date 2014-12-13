@@ -97,10 +97,23 @@
 						</StackPanel>
 					</Grid>
 					<StackPanel Orientation="Vertical" Margin="0">
-						<TextBox Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center"/>
-						<TextBox Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Age" TextAlignment="Center" InputScope="Number"/>
-						<TextBox Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130"/>
+						<TextBox x:Name="MyName" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Name" TextAlignment="Center"/>
+						<TextBox x:Name="MyYear" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Year of births" TextAlignment="Center" InputScope="Number"/>
+						<TextBox x:Name="MyDesc" Margin="0,0,0,5" TextWrapping="Wrap" VerticalAlignment="Stretch" PlaceholderText="Description" TextAlignment="Center" MinHeight="130" InputScope="Number"/>
+						<Button x:Name="Save" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource PhoneAccentBrush}" BorderThickness="0" MinWidth="0" MinHeight="70" Click="Save_Click"/>
 					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</Flyout>
+		<Flyout x:Key="MoreInfoUser">
+			<Grid>
+				<StackPanel Margin="25,0">
+					<TextBlock TextWrapping="Wrap" Text="Username" FontWeight="Bold" FontSize="16"/>
+					<TextBlock TextWrapping="Wrap" Text="{Binding Username}" FontSize="13.333"/>
+					<TextBlock TextWrapping="Wrap" Text="Age" FontWeight="Bold" FontSize="16"/>
+					<TextBlock TextWrapping="Wrap" Text="{Binding Age}" FontSize="13.333"/>
+					<TextBlock TextWrapping="Wrap" Text="Desc" FontWeight="Bold" FontSize="16"/>
+					<TextBlock TextWrapping="Wrap" Text="{Binding Description}" FontSize="13.333"/>
 				</StackPanel>
 			</Grid>
 		</Flyout>
@@ -112,13 +125,13 @@
 	<TextBlock TextWrapping="Wrap" Text="{Binding GetSexChar}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
 </Border>
 				<TextBlock TextWrapping="Wrap" Text="{Binding Username}" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Margin="65,0,0,0"/>
-				<TextBlock TextWrapping="Wrap" Text="{Binding Year}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="85,0,0,5"/>
-				<Button Content="&#xE1CB;" HorizontalAlignment="Right" VerticalAlignment="Stretch" BorderThickness="0" FontFamily="Segoe UI Symbol" FontSize="18.667" MinWidth="50" MinHeight="50" Margin="0"/>
+				<TextBlock TextWrapping="Wrap" Text="{Binding Age}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="85,0,0,5"/>
+				<Button Content="&#xE1CB;" HorizontalAlignment="Right" VerticalAlignment="Stretch" BorderThickness="0" FontFamily="Segoe UI Symbol" FontSize="18.667" MinWidth="50" MinHeight="50" Margin="0" Flyout="{StaticResource MoreInfoUser}"/>
 			</Grid>
 		</DataTemplate>
 	</Page.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="#FF441818">
+    <Grid x:Name="LayoutRoot" Background="#00000000">
 
         <Grid.ChildrenTransitions>
             <TransitionCollection>
