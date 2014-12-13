@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="App1.Talk"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<Page.Resources>
+		<DataTemplate x:Key="Message">
+			<Grid Width="385" Margin="0,0,0,10" >
+				<Border BorderBrush="Black" BorderThickness="1" Background="{ThemeResource PhoneAccentBrush}" HorizontalAlignment="{Binding Align}" MinWidth="200">
+					<TextBlock TextWrapping="Wrap" Text="{Binding Message}" Margin="0,0,0,7.5" Foreground="White" HorizontalAlignment="{Binding Align}" Padding="10,5"/>
+				</Border>
+			</Grid>
+		</DataTemplate>
+	</Page.Resources>
+	<Page.BottomAppBar>
+		<CommandBar>
+			<AppBarButton Icon="Send" Label="Send"/>
+		</CommandBar>
+	</Page.BottomAppBar>
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions><TextBox TextWrapping="Wrap" VerticalAlignment="Bottom" PlaceholderText="Type your message here" Margin="0" Grid.RowSpan="2"/>
+    	<ListView x:Name="Lista" ItemTemplate="{StaticResource Message}" Margin="0,0,0,109.667" Grid.RowSpan="2"/>
+
+        <!-- Title Panel -->
+
+        <!--TODO: Content should be placed within the following grid-->
+    </Grid>
+</Page>
