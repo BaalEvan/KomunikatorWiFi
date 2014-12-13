@@ -86,29 +86,29 @@ namespace App1
             using (var reader = new StreamReader(resultStream))
             {
                 var text = await reader.ReadToEndAsync();
-
-
-                    log.ShowDebug(text);
                 Message received = JsonConvert.DeserializeObject<Message>(text);
 
                 switch (received.MessageID)
                 {
                     case 1: // Hello
                         {
-                            User newUser = received.UserInfo; // JsonConvert.DeserializeObject<User>(received.Content);
+                            User newUser = received.UserInfo;
                             if (newUser.Address != userInfo.Address)
                             {
                                 log.ShowDebug("Received hello message from " + newUser.Username);
 
                                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                                 {
-                                    if (!BackLobby.userList.Contains(newUser))
+                                    for (int i = 0; i < BackLobby.userList.Count; ++i)
                                     {
-                                        BackLobby.userList.Add(newUser);
-
-                                        Message response = new Message(2, "");
-                                        SendMessage(response, 1990, newUser.Address);
+                                        if (BackLobby.userList[i].Address == newUser.Address)
+                                            return;
                                     }
+
+                                    BackLobby.userList.Add(newUser);
+
+                                    Message response = new Message(2, "");
+                                    SendMessage(response, 1990, newUser.Address);
                                 });
                             }
                         }
