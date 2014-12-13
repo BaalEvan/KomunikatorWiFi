@@ -98,11 +98,13 @@ namespace App1
         /// handlers that cannot cancel the navigation request.</param>
         /// 
         public string IP;
+        Conversation thisConv;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
             //Lista.ItemsSource = new List<ConversationMessage>() { new ConversationMessage(true,"asd"), new ConversationMessage(true,"asd"), new ConversationMessage(false,"asd"), new ConversationMessage(true,"asd") };
-            Lista.ItemsSource = ConversationList.GetIfExist(e.Parameter as User).messageList;
+            thisConv = ConversationList.GetIfExist(e.Parameter as User);
+            Lista.ItemsSource = thisConv.messageList;
             IP = (e.Parameter as User).Address;
         }
 
@@ -116,6 +118,11 @@ namespace App1
         private void Send_Click(object sender, RoutedEventArgs e)
         {
             Socket_Client.SendMessage(new Message(3,TextToSend.Text),IP);
+            thisConv.AddMessage(false, TextToSend.Text);
+            TextToSend.Text = "";
+            Lista.ItemsSource = new List<string>();
+            Lista.ItemsSource = thisConv.messageList;
+            
         }
     }
 }

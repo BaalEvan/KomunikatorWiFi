@@ -25,40 +25,8 @@ namespace App1
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        Socket_Client client;
-        public static BackLobby backLobby;
-        Log log;
-        User userInfo;
 
-        private void CommandHandler1(IUICommand command)
-        {
-            var label = command.Label;
-            switch (label)
-            {
-                case "Yes":
-                    {
-                        Socket_Client.SendMessage(new Message(90,""));
-                        Application.Current.Exit();
-                        break;
-                    }
-                case "No":
-                    {
-                        break;
-                    }
-
-            }
-
-        }
-
-        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            e.Handled = true;
-            MessageDialog dlg = new MessageDialog("Are you sure you want to quit?", "Warning");
-            dlg.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(CommandHandler1)));
-            dlg.Commands.Add(new UICommand("No", new UICommandInvokedHandler(CommandHandler1)));
-
-            await dlg.ShowAsync();
-        }
+ 
 
         public MainPage()
         {
@@ -66,22 +34,7 @@ namespace App1
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
-            if (roamingSettings.Values["userName"] == null) roamingSettings.Values["userName"] = "";
-            if (roamingSettings.Values["yearOfBirth"]  == null) roamingSettings.Values["yearOfBirth"] = DateTime.Now.Year ;
-            if (roamingSettings.Values["description"] == null) roamingSettings.Values["description"] ="";
-            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 1;
-
-            log = new Log();
-            log.Init(ContentTbl);
-            Socket_Client.log = log;
-            ContentTbl.Text = "";
-
-            client = new Socket_Client();
-            client.Initialize(ContentTbl);
-
-            backLobby = new BackLobby();
+  
         }
 
         /// <summary>
@@ -91,7 +44,6 @@ namespace App1
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             // TODO: Prepare page for display here.
 
@@ -105,7 +57,6 @@ namespace App1
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
 
-            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
             // TODO: Prepare page for display here.
 
             // TODO: If your application contains multiple pages, ensure that you are

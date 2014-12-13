@@ -117,6 +117,7 @@ namespace App1
                                 });
 
                                 Message response = new Message(2, "");
+                                log.Reload();
                                 SendMessage(response, newUser.Address);
                             }
                         }
@@ -136,6 +137,8 @@ namespace App1
                                 }
 
                                 BackLobby.userList.Add(newUser);
+                                log.Reload();
+
                             });
                         }
                         break;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace App1
@@ -37,7 +38,7 @@ namespace App1
     {
         public User userInfo;
 
-        public List<ConversationMessage> messageList;
+        public ObservableCollection<ConversationMessage> messageList;
 
         public void AddMessage( bool In, string Mes )
         {
@@ -46,14 +47,20 @@ namespace App1
     }
     static class ConversationList
     {
-        public static List<Conversation> ListOfConversation = new List<Conversation>();
+        public static ObservableCollection<Conversation> ListOfConversation = new ObservableCollection<Conversation>();
 
         public static Conversation GetIfExist(User Info)
         {
-            var r = ListOfConversation.Find(ele => ele.userInfo.Address == Info.Address);
-            if (r == null) { r = new Conversation { userInfo = Info, messageList = new List<ConversationMessage>() };
-            ListOfConversation.Add(r);
+            Conversation r = null;
+            foreach (var element in ListOfConversation) 
+            { 
+            if (element.userInfo.Address == Info.Address) r = element;
             }
+            //var r = ListOfConversation.Find(ele => ele.userInfo.Address == Info.Address);
+            if (r == null)
+            {
+                r = new Conversation { userInfo = Info, messageList = new ObservableCollection<ConversationMessage>() }; 
+            ListOfConversation.Add(r);}
             return r;
         }
     }

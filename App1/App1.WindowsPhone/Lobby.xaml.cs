@@ -7,6 +7,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.Phone.UI.Input;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,8 +25,47 @@ namespace App1
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
+
+
+
     public sealed partial class Lobby : Page
     {
+        Socket_Client client;
+        public static BackLobby backLobby;
+        Log log;
+        User userInfo;
+
+
+        private void CommandHandler1(IUICommand command)
+        {
+            var label = command.Label;
+            switch (label)
+            {
+                case "Yes":
+                    {
+                        Socket_Client.SendMessage(new Message(90, ""));
+                        Application.Current.Exit();
+                        break;
+                    }
+                case "No":
+                    {
+                        break;
+                    }
+
+            }
+
+        }
+        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            e.Handled = true;
+            MessageDialog dlg = new MessageDialog("Are you sure you want to quit?", "Warning");
+            dlg.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(CommandHandler1)));
+            dlg.Commands.Add(new UICommand("No", new UICommandInvokedHandler(CommandHandler1)));
+
+            await dlg.ShowAsync();
+        }
+
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -35,6 +76,28 @@ namespace App1
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+
+            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
+            if (roamingSettings.Values["userName"] == null) roamingSettings.Values["userName"] = "";
+            if (roamingSettings.Values["yearOfBirth"] == null) roamingSettings.Values["yearOfBirth"] = DateTime.Now.Year;
+            if (roamingSettings.Values["description"] == null) roamingSettings.Values["description"] = "";
+            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 1;
+            TextBlock ContentTbl = new TextBlock();
+            log = new Log();
+            log.Init(ContentTbl,UserListView);
+            Socket_Client.log = log;
+            ContentTbl.Text = "";
+
+            client = new Socket_Client();
+            client.Initialize(ContentTbl);
+
+            backLobby = new BackLobby();
+
+
+
+
         }
 
         /// <summary>
@@ -99,6 +162,8 @@ namespace App1
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
           //  Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
          //   Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
             UserListView.ItemsSource = BackLobby.userList;
@@ -123,7 +188,10 @@ namespace App1
         public bool isMale;
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+
             this.navigationHelper.OnNavigatedFrom(e);
+            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+
         }
 
 
