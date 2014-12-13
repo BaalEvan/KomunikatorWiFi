@@ -43,14 +43,41 @@ namespace App1
         {
             get { return this.navigationHelper; }
         }
-
-
+        Socket_Client client;
+        public static BackLobby backLobby;
+        Log log;
+        User userInfo;
         public Lobby()
         {
             this.InitializeComponent();
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += navigationHelper_LoadState;
             this.navigationHelper.SaveState += navigationHelper_SaveState;
+
+
+            
+
+            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
+            if (roamingSettings.Values["userName"] == null) roamingSettings.Values["userName"] = "";
+            if (roamingSettings.Values["yearOfBirth"] == null) roamingSettings.Values["yearOfBirth"] = DateTime.Now.Year;
+            if (roamingSettings.Values["description"] == null) roamingSettings.Values["description"] = "";
+            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 1;
+            TextBlock ContentTbl = new TextBlock();
+            log = new Log();
+            log.Init(ContentTbl,UserListView);
+            Socket_Client.log = log;
+            ContentTbl.Text = "";
+
+            client = new Socket_Client();
+            client.Initialize(ContentTbl);
+
+            backLobby = new BackLobby();
+
+
+
+
+
         }
 
         /// <summary>
@@ -91,16 +118,87 @@ namespace App1
         /// The navigation parameter is available in the LoadState method 
         /// in addition to page state preserved during an earlier session.
 
+        TextBox MyName = new TextBox();
+        TextBox MyYear = new TextBox();
+        TextBox MyDesc = new TextBox();
+
+        Button She = new Button();
+        Button He = new Button();
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             navigationHelper.OnNavigatedTo(e);
+           // HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
+            //  Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            //   Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
+            UserListView.ItemsSource = BackLobby.userList;
+            MyName.Text = roamingSettings.Values["userName"].ToString();
+            MyYear.Text = roamingSettings.Values["yearOfBirth"].ToString();
+            MyDesc.Text = roamingSettings.Values["description"].ToString();
+            isMale = Convert.ToBoolean(roamingSettings.Values["sex"]);
+            if (isMale == true)
+            {
+                She.Opacity = 0.25f;
+                He.Opacity = 0.74f;
+            }
+            else
+            {
+                She.Opacity = 0.74f;
+                He.Opacity = 0.25f;
+            }
         }
+
+        Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+        Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
+        public bool isMale;
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             navigationHelper.OnNavigatedFrom(e);
+         //   HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
         }
 
         #endregion
+
+        private void Sex_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (isMale == false)
+            {
+                isMale = true;
+                She.Opacity = 0.25f;
+                He.Opacity = 0.74f;
+            }
+            else
+            {
+                isMale = false;
+
+                She.Opacity = 0.74f;
+                He.Opacity = 0.25f;
+            }// TODO: Add event handler implementation here.
+        }
+
+        private void Save_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            roamingSettings.Values["userName"] = Socket_Client.userInfo.Username = MyName.Text;
+            roamingSettings.Values["yearOfBirth"] = MyYear.Text;
+            Socket_Client.userInfo.Year = int.Parse(MyYear.Text.ToString());
+            roamingSettings.Values["description"] = Socket_Client.userInfo.Description = MyDesc.Text;
+            roamingSettings.Values["sex"] = Socket_Client.userInfo.Sex = isMale ? 1 : 0;
+
+            Socket_Client.SendMessage(new Message(4, ""));
+        }
+
+        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+        }
+
+        private void UserListView_ItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
+        {
+
+            Frame.Navigate(typeof(Talk), e.ClickedItem as User);
+
+        }
+
     }
 }

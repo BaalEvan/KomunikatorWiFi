@@ -27,6 +27,22 @@ namespace App1
             }
         }
 
+        public int Rotation
+        {
+            get
+            {
+                if (Incoming)
+                {
+                    return 180;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+
         public ConversationMessage(bool incoming, string message)
         {
             Incoming = incoming;

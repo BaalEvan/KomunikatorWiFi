@@ -10,7 +10,10 @@
 	<Page.Resources>
 		<DataTemplate x:Key="Message">
 			<Grid Width="385" Margin="0,0,0,10" >
-				<Border BorderBrush="Black" BorderThickness="1" Background="{ThemeResource PhoneAccentBrush}" HorizontalAlignment="{Binding Align}" MinWidth="200">
+				<Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="{Binding Align}" MinWidth="200">
+					<Border.Background>
+						<SolidColorBrush Color="#FFF5AA15"/>
+					</Border.Background>
 					<TextBlock TextWrapping="Wrap" Text="{Binding Message}" Margin="0,0,0,7.5" Foreground="White" HorizontalAlignment="{Binding Align}" Padding="10,5"/>
 				</Border>
 			</Grid>

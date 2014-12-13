@@ -90,10 +90,14 @@ namespace App1
         /// and <see cref="GridCS.Common.NavigationHelper.SaveState"/>.
         /// The navigation parameter is available in the LoadState method 
         /// in addition to page state preserved during an earlier session.
-
+        public string IP;
+        Conversation thisConv;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             navigationHelper.OnNavigatedTo(e);
+            thisConv = ConversationList.GetIfExist(e.Parameter as User);
+            Lista.ItemsSource = thisConv.messageList;
+            IP = (e.Parameter as User).Address;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -102,5 +106,18 @@ namespace App1
         }
 
         #endregion
+
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            Socket_Client.SendMessage(new Message(3, TextToSend.Text), IP);
+            thisConv.AddMessage(false, TextToSend.Text);
+           // TextToSend.Text = "";
+           // Lista.ItemsSource = new List<string>();
+           // Lista.ItemsSource = thisConv.messageList;
+           // Lista.ScrollIntoView(thisConv.messageList[thisConv.messageList.Count - 1]);
+        }
+
+
     }
 }
