@@ -68,13 +68,12 @@ namespace App1
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-
             Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
-         //   roamingSettings.Values["userName"] = "Baal";
-           // roamingSettings.Values["yearOfBirth"] = "1995";
-           // roamingSettings.Values["description"] = "King of The World";
-           // roamingSettings.Values["sex"] = 1;
+            if (roamingSettings.Values["userName"] == null) roamingSettings.Values["userName"] = "";
+            if (roamingSettings.Values["yearOfBirth"]  == null) roamingSettings.Values["yearOfBirth"] = DateTime.Now.Year ;
+            if (roamingSettings.Values["description"] == null) roamingSettings.Values["description"] ="";
+            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 0;
 
             log = new Log();
             log.Init(ContentTbl);
