@@ -46,4 +46,15 @@ namespace App1
             messageList.Add(new ConversationMessage(In, Mes));
         }
     }
+    static class ConversationList
+    {
+        public static List<Conversation> ListOfConversation = new List<Conversation>();
+
+        public static Conversation GetIfExist(User Info)
+        {
+            var r = ListOfConversation.Find(ele => ele.userInfo.Address == Info.Address);
+            if (r == null) r = new Conversation { userInfo = Info, messageList = new List<ConversationMessage>() };
+            return r;
+        }
+    }
 }
