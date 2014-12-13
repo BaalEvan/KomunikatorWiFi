@@ -64,17 +64,15 @@ namespace App1
         {
             this.InitializeComponent();
 
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-
             Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             Windows.Storage.StorageFolder roamingFolder = Windows.Storage.ApplicationData.Current.RoamingFolder;
-         //   roamingSettings.Values["userName"] = "Baal";
-           // roamingSettings.Values["yearOfBirth"] = "1995";
-           // roamingSettings.Values["description"] = "King of The World";
-           // roamingSettings.Values["sex"] = 1;
+            if (roamingSettings.Values["userName"] == null) roamingSettings.Values["userName"] = "";
+            if (roamingSettings.Values["yearOfBirth"]  == null) roamingSettings.Values["yearOfBirth"] = DateTime.Now.Year ;
+            if (roamingSettings.Values["description"] == null) roamingSettings.Values["description"] ="";
+            if (roamingSettings.Values["sex"] == null) roamingSettings.Values["sex"] = 0;
 
             log = new Log();
             log.Init(ContentTbl);
@@ -94,6 +92,8 @@ namespace App1
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
             // TODO: Prepare page for display here.
 
             // TODO: If your application contains multiple pages, ensure that you are
@@ -102,6 +102,20 @@ namespace App1
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
         }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+
+            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+            // TODO: Prepare page for display here.
+
+            // TODO: If your application contains multiple pages, ensure that you are
+            // handling the hardware Back button by registering for the
+            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
+            // If you are using the NavigationHelper provided by some templates,
+            // this event is handled for you.
+        }
+
 
         private void Send_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -120,7 +134,7 @@ namespace App1
 
         private void Button1_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(BlankPage1));// TODO: Add event handler implementation here.
+            Frame.Navigate(typeof(Talk));// TODO: Add event handler implementation here.
         }
     }
 }

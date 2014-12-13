@@ -6,18 +6,35 @@ namespace App1
 {
     class ConversationMessage
     {
-        public bool Incoming;
-        public string Message;
-        public DateTime Time;
+        public bool Incoming { get; set; }
+        public string Message { get; set; }
+        public DateTime Time { get; set; }
 
-        public ConversationMessage( bool incoming, string message )
+
+        public string Align
+        {
+            get
+            {
+                if (Incoming)
+                {
+                    return "Left";
+                }
+                else
+                {
+                    return "Right";
+                }
+            }
+        }
+
+
+
+        public ConversationMessage(bool incoming, string message)
         {
             Incoming = incoming;
             Message = message;
             Time = DateTime.Now;
         }
     }
-
     class Conversation
     {
         public User userInfo;
