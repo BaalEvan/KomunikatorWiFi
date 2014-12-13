@@ -59,7 +59,7 @@ namespace App1
                 //{
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    mess.ScrollIntoView((mess.ItemsSource as List<ConversationMessage>)[(mess.ItemsSource as List<ConversationMessage>).Count-1]);   
+                   // mess.ScrollIntoView((mess.ItemsSource as List<ConversationMessage>)[(mess.ItemsSource as List<ConversationMessage>).Count-1]);   
 
                 });
                 // }
