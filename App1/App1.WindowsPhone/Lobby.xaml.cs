@@ -149,7 +149,7 @@ namespace App1
 		 {
              roamingSettings.Values["userName"] = Socket_Client.userInfo.Username = MyName.Text;
              roamingSettings.Values["yearOfBirth"] = MyYear.Text;
-             Socket_Client.userInfo.Year = int.Parse(MyYear.ToString());
+             Socket_Client.userInfo.Year = int.Parse(MyYear.Text.ToString());
              roamingSettings.Values["description"] = Socket_Client.userInfo.Description = MyDesc.Text;
              roamingSettings.Values["sex"] = Socket_Client.userInfo.Sex = isMale ? 1 : 0;
 
