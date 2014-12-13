@@ -165,6 +165,7 @@ namespace App1
                                         if (BackLobby.userList[i].Address == info.Address)
                                         {
                                             BackLobby.userList.RemoveAt(i);
+                                            log.ShowDebug("User " + info.Username + " has disconnected.");
                                             break;
                                         }
                                     }
