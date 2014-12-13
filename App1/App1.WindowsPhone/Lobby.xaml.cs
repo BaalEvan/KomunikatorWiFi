@@ -99,6 +99,8 @@ namespace App1
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedTo(e);
+            UserListView.ItemsSource = BackLobby.userList;
+
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
